@@ -11,10 +11,3 @@ class colors:
     BLINK = '\033[5m'
 
 
-print (colors.HEADER + 'tekst' + colors.ENDC)
-print (colors.OKBLUE + 'tekst' + colors.ENDC)
-print (colors.OKGREEN + 'tekst' + colors.ENDC)
-print (colors.WARNING + 'tekst' + colors.ENDC)
-print (colors.FAIL + 'tekst' + colors.ENDC)
-print (colors.BOLD + 'tekst' + colors.ENDC)
-
