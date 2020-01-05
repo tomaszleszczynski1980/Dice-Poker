@@ -1,9 +1,6 @@
 from random import randint
-from copy import deepcopy
-# from os import system
 
-
-# zmienne globalne
+# global variables
 
 
 points = {'Pair': 0,
@@ -40,36 +37,36 @@ class colors:
     BACKGROUND = '\033[7m'
 
 
-# FUNKCJE
+# FUNCTIONS
 
-# rzuty kostkami
-
-
-def losowanie_kosci (ilosc_kosci: int):
-
-    wynik = []
-
-    for i in range(ilosc_kosci):
-
-        wynik.append(randint (1,6))
-
-    return wynik
+# dices throwing
 
 
-def kolejny_rzut (hand: list, choice: list):
+def dice_throw (number_of_dices: int):
 
-    wynik = losowanie_kosci (len(choice))
+    result = []
+
+    for i in range(number_of_dices):
+
+        result.append(randint (1,6))
+
+    return result
+
+
+def another_throw (hand: list, choice: list):
+
+    result = dice_throw (len(choice))
 
     j = 0
     for i in choice:
 
-        hand[choice[j]] = wynik[j]
+        hand[choice[j]] = result[j]
         j += 1
 
     return hand
 
 
-# rozponawanie figur i dodawanie do listy
+# figures recognation and adding them to list
 
 
 def check_hand (hand: list, points: dict):
@@ -78,16 +75,16 @@ def check_hand (hand: list, points: dict):
 
     results = []
 
-    temp = deepcopy(hand)
+    temp = hand[:]
     temp.sort()
 
-    # sprawdza czy jest poker
+    # checks if is poker (5 of a kind)
 
     if temp.count(hand[0]) == 5:
         results.append(('Three of a kind', sum(temp[0:3])))
 
 
-    # sprawdza czy jest kareta
+    # checks if is 4 of a kind
 
     if (temp.count(temp[0]) >= 4):
         results.append(('Four of a kind', 20 + sum(temp[0:4])))
@@ -96,7 +93,7 @@ def check_hand (hand: list, points: dict):
         results.append(('Four of a kind', 20 + sum(temp[1:5])))
 
 
-    # sprawdza czy jest full
+    # checks if is fullhouse
 
     if ((temp.count(temp[0]) == 3) and (temp.count(temp[-1]) == 2)):
         results.append(('Full House', 10 + sum(hand)))
@@ -105,33 +102,33 @@ def check_hand (hand: list, points: dict):
         results.append(('Full House', 10 + sum(hand)))
 
 
-    # sprawdza czy jest duży straight
+    # checks if is large straight
 
     if temp == [2, 3, 4, 5, 6]:
         results.append(('Large Straight', 20))
 
 
-    # sprawdza czy jest mały straight
+    # checks if is small straight
 
     if temp == [1, 2, 3, 4, 5]:
         results.append(('Small Straight', 15))
 
 
-    # sprawdza czy wszystkie są parzyste
+    # checks if is all even
 
     if (temp[0] % 2 == 0) and (temp[1] % 2 == 0) and (temp[2] % 2 == 0) \
     and (temp[3] % 2 == 0) and (temp[4] % 2 == 0):
         results.append(('All even', sum(temp)))
 
 
-    # sprawdza czy wszystkie są nieparzyste
+    # checks if is all odd
 
     if (temp[0] % 2 == 1) and (temp[1] % 2 == 1) and (temp[2] % 2 == 1) \
     and (temp[3] % 2 == 1) and (temp[4] % 2 == 1):
         results.append(('All odd', sum(temp)))
 
 
-    # sprawdza czy jest trójka
+    # checks if is 4 of a kind
 
     if (temp.count(temp[0]) >= 3):
         results.append(('Three of a kind', sum(temp[0:3])))
@@ -143,7 +140,7 @@ def check_hand (hand: list, points: dict):
         results.append(('Three of a kind', sum(temp[1:4])))
 
 
-    # sprawdza czy są dwie pary
+    # checks if there are two pairs
 
     if ((temp[0] == temp [1])):
         
@@ -157,21 +154,22 @@ def check_hand (hand: list, points: dict):
         results.append(('Two Pairs', sum(temp[1:5])))
 
 
-    # sprawdza czy jest/są pary
+    # checks if is pair or pairs
 
     for i in range(1, 7):
         if temp.count(i) >= 2:
            results.append(('Pair', i * 2))
 
 
-    # szansa zawsze jest dopisuje jej wartość :)
+    # chance is always :), so adds it to the list results
 
     results.append(('Chance', sum(hand)))
 
 
-    # wywala z listy rezultatów, te figury, które już zdobyliśmy (mają wartość punktową inną niż 0 w słowniku points
+    # removes from results figures that we already achieved or striked out
+    # those figures that have value different than 0 in points dict
 
-    results_temp = deepcopy(results)
+    results_temp = results[:]
 
     for z in results_temp:
         if points[z[0]] != 0:
@@ -180,7 +178,7 @@ def check_hand (hand: list, points: dict):
     return results
 
 
-# dodawanie punktów, usuwanie figur
+# adding points, deleting (striking) figures
 
 
 def adding_points_striking_figures (results: list, points: dict, to_add = 0, to_strike = ''):
@@ -222,10 +220,10 @@ def adding_points_striking_figures (results: list, points: dict, to_add = 0, to_
 
 
 
-# PRYMITYWNY INTERFEJS
+# SHITTY USER INTERFACE
 
 
-def prymitywna_wizualka (hand: list):
+def dices_view (hand: list):
 
     pattern = (('│       │', '│   •   │', '│       │'),  # 1
                ('│ •     │', '│       │', '│     • │'),  # 2
@@ -249,43 +247,21 @@ def prymitywna_wizualka (hand: list):
     print(' ')
 
 
-# drukuje tabelę wyników
+# prints points table
 
-def tabelka (points_dict: dict):
+def points_table (points_dict: dict):
 
-    print ('+------------------+-------+')
+    print ('+--------------------+--------+')
 
     for i in points_dict.items():
 
-        space_l = 15 - len(i[0])
-        space =''
+        print ('|', i[0].ljust(18), '|', str(i[1]).center(6), '|')
 
-        for j in range(space_l):
-            space += ' '
-
-
-        if (len(str(i[1])) == 1):
-            space2 = ' '
-        elif (len(str(i[1])) == 2):
-            space2 = ''
-
-
-        if (len(str(sum(points.values()))) == 1):
-            space3 = '   '
-        elif (len(str(sum(points.values()))) == 2):
-            space3 = '   '
-        elif (len(str(sum(points.values()))) == 3):
-            space3 = '     '
-
-        
-
-        print ('|', i[0], space, '|', i[1], space2, '  |')
-
-    print ('+------------------+-------+')
-    print ('|                  |       |')
-    print ('| TOTAL            |', str(sum(points.values())) + space3, '|')
-    print ('|                  |       |')
-    print ('+------------------+-------+') 
+    print ('+--------------------+--------+')
+    print ('|                    |        |')
+    print ('| TOTAL              |', str(sum(points.values())).center(6), '|')
+    print ('|                    |        |')
+    print ('+--------------------+--------+')
 
 
 # wybór kostek do drugiego rzutu
@@ -320,7 +296,7 @@ def add_remove_input (results: list, points: dict):
 
         print ('')
 
-        tabelka (points)
+        points_table (points)
 
         choice = input('Choose figure to add (number) or name figure from points list to delete: ')
 
@@ -343,7 +319,7 @@ def add_remove_input (results: list, points: dict):
                 add = 1
 
     else:
-        tabelka (points)
+        points_table (points)
 
         choice = input('Type figure from points list to delete: ')
 
@@ -354,7 +330,7 @@ def add_remove_input (results: list, points: dict):
     return add, remove
 
 
-# główna funkcja gry, na razie brzydka
+# main function, VERY, VERY ... VERY UGLY
 
 def main (points: dict, rounds: int):
 
@@ -362,12 +338,12 @@ def main (points: dict, rounds: int):
 
     for loop in range(rounds):
 
-        hand = losowanie_kosci(5)
+        hand = dice_throw(5)
 
         print (hand)
         print ('')
 
-        prymitywna_wizualka(hand)
+        dices_view (hand)
 
         res = check_hand(hand, points)
 
@@ -377,12 +353,12 @@ def main (points: dict, rounds: int):
 
         if (len(reroll) > 0 and len(reroll) < 6):
 
-            hand = kolejny_rzut(hand, reroll)
+            hand = another_throw(hand, reroll)
 
             print(hand)
             print('')
 
-            prymitywna_wizualka(hand)
+            dices_view (hand)
 
             res = check_hand(hand, points)
 
@@ -392,7 +368,7 @@ def main (points: dict, rounds: int):
 
             reroll = reroll[0:5]
 
-            hand = kolejny_rzut(hand, reroll)
+            hand = another_throw(hand, reroll)
 
             print(hand)
             print('')
@@ -415,7 +391,7 @@ def main (points: dict, rounds: int):
 
         print ('')
 
-        tabelka (points)
+        points_table (points)
 
         print ('')
         stop = input('Press enter to next move, q to quit:')
