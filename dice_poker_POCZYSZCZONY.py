@@ -194,7 +194,7 @@ def adding_points_striking_figures (results: list, points: dict, to_add = 0, to_
 
                 if (points[to_strike] == 0):
 
-                    points.pop(to_strike)
+                    points[to_strike] = 'X'
                     print (to_strike, 'removed')
 
                 else:
@@ -204,7 +204,7 @@ def adding_points_striking_figures (results: list, points: dict, to_add = 0, to_
                         if (item[1] == 0):
 
                             print(item[0], 'removed')
-                            points.pop(item[0])
+                            points[item[0]] = 'X'
                             break
 
             else:
@@ -213,12 +213,17 @@ def adding_points_striking_figures (results: list, points: dict, to_add = 0, to_
                     if (item[1] == 0):
 
                         print(item[0], 'removed')
-                        points.pop(item[0])
+                        points[item[0]] = 'X'
                         break
 
     return points
 
 
+# this functions sums points in points dictionary omitting figures that are stroke out (marked with 'X')
+
+def sum_points(points_dict: dict):
+
+    return sum([points for points in points_dict.values() if type(points) == int])
 
 # SHITTY USER INTERFACE
 
@@ -259,7 +264,7 @@ def points_table (points_dict: dict):
 
     print ('+--------------------+--------+')
     print ('|                    |        |')
-    print ('| TOTAL              |', str(sum(points.values())).center(6), '|')
+    print ('| TOTAL              |', str(sum_points(points_dict)).center(6), '|')
     print ('|                    |        |')
     print ('+--------------------+--------+')
 
@@ -373,7 +378,7 @@ def main (points: dict, rounds: int):
             print(hand)
             print('')
 
-            prymitywna_wizualka(hand)
+            dices_view (hand)
 
             res = check_hand(hand, points)
 
@@ -399,6 +404,6 @@ def main (points: dict, rounds: int):
         if stop == 'q':
             break
 
-    print ('Finished! You gain in total: ', sum(points.values()), 'points')
+    print ('Finished! You gain in total: ', sum_points(points), 'points')
 
 main (points, 11)
