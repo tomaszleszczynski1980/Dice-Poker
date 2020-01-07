@@ -16,6 +16,7 @@ points = {'Pair': 0,
           'Chance': 0
           }
 
+# total_points = {name: points}
 
 class colors:
     
@@ -276,7 +277,7 @@ def points_table (points_dict: dict):
 
 def input_to_reroll():
 
-    roll = input('choose dices to re-roll? (sep with commas, empty = nothing to re-roll): ')
+    roll = input(f'{colors.RED}choose dices to re-roll? (sep with commas, empty = nothing to re-roll): {colors.ENDC}')
 
     if ((roll == '' or roll[0] == ' ' or roll[0] == '0')):
 
