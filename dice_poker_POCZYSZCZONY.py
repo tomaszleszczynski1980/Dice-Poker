@@ -42,7 +42,7 @@ class colors:
 # dices throwing
 
 
-def dice_throw (number_of_dices: int): -> list
+def dice_throw (number_of_dices: int):
 
     result = []
 
@@ -52,7 +52,7 @@ def dice_throw (number_of_dices: int): -> list
     return result
 
 
-def another_throw (hand: list, choice = None: list):   # change the name
+def another_throw (hand: list, choice = None):   # change the name
 
     # check choice human input
     if choice is None:
@@ -173,7 +173,7 @@ def check_hand (hand: list, points: dict):
     results_temp = results[:]
 
     for z in results_temp:
-        if not points[z[0]]:
+        if points[z[0]] != 0:
             results.remove(z)
 
     return results
