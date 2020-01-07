@@ -42,25 +42,27 @@ class colors:
 # dices throwing
 
 
-def dice_throw (number_of_dices: int):
+def dice_throw (number_of_dices: int): -> list
 
     result = []
 
     for i in range(number_of_dices):
-
         result.append(randint (1,6))
 
     return result
 
 
-def another_throw (hand: list, choice: list):
+def another_throw (hand: list, choice = None: list):   # change the name
+
+    # check choice human input
+    if choice is None:
+        choice = range(len(hand))
 
     result = dice_throw (len(choice))
 
     j = 0
-    for i in choice:
-
-        hand[choice[j]] = result[j]
+    for dice_number in choice:
+        hand[dice_number] = result[j]
         j += 1
 
     return hand
@@ -70,8 +72,7 @@ def another_throw (hand: list, choice: list):
 
 
 def check_hand (hand: list, points: dict):
-    
-    '''this function checks avaiable figures in hand'''
+    '''this function checks avaiable figures in hand in five dice Poker'''
 
     results = []
 
@@ -81,7 +82,7 @@ def check_hand (hand: list, points: dict):
     # checks if is poker (5 of a kind)
 
     if temp.count(hand[0]) == 5:
-        results.append(('Three of a kind', sum(temp[0:3])))
+        results.append(('Five of a kind', sum(temp) + 50))
 
 
     # checks if is 4 of a kind
@@ -128,7 +129,7 @@ def check_hand (hand: list, points: dict):
         results.append(('All odd', sum(temp)))
 
 
-    # checks if is 4 of a kind
+    # checks if is 3 of a kind
 
     if (temp.count(temp[0]) >= 3):
         results.append(('Three of a kind', sum(temp[0:3])))
@@ -172,7 +173,7 @@ def check_hand (hand: list, points: dict):
     results_temp = results[:]
 
     for z in results_temp:
-        if points[z[0]] != 0:
+        if not points[z[0]]:
             results.remove(z)
 
     return results
@@ -182,7 +183,9 @@ def check_hand (hand: list, points: dict):
 
 
 def adding_points_striking_figures (results: list, points: dict, to_add = 0, to_strike = ''):
-
+    '''
+    explain how to play
+    '''
 
     if (0 < to_add <= len(results)):
 
@@ -225,7 +228,7 @@ def sum_points(points_dict: dict):
 
     return sum([points for points in points_dict.values() if type(points) == int])
 
-# SHITTY USER INTERFACE
+# UGLY USER INTERFACE
 
 
 def dices_view (hand: list):
