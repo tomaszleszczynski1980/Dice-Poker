@@ -48,17 +48,16 @@ def check_hand(hand: list, points: dict):
         return ('Small Straight', 15)    # small straight is always 15 points
 
 
-    # checks if is all even
+    def is_even (sorted_hand: list):
 
-    if (temp[0] % 2 == 0) and (temp[1] % 2 == 0) and (temp[2] % 2 == 0) \
-            and (temp[3] % 2 == 0) and (temp[4] % 2 == 0):
-        results.append(('All even', sum(temp)))
+    if all([dice_value for dice_value in sorted_hand if dice_value % 2 == 0]):
+        return ('All even', sum(sorted_hand))
 
-    # checks if is all odd
 
-    if (temp[0] % 2 == 1) and (temp[1] % 2 == 1) and (temp[2] % 2 == 1) \
-            and (temp[3] % 2 == 1) and (temp[4] % 2 == 1):
-        results.append(('All odd', sum(temp)))
+    def is_odd (sorted_hand: list):
+
+    if all([dice_value for dice_value in sorted_hand if dice_value % 2 != 0]):
+        return ('All odd', sum(sorted_hand))
 
     # checks if is 3 of a kind
 
