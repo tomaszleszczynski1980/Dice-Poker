@@ -15,6 +15,9 @@ points = {'Pair': 0,
           'Chance': 0
           }
 
+def sum_points(points_dict: dict):
+    '''this functions sums points in points dictionary omitting figures that are stroke out (marked with 'X')'''
+    return sum([points for points in points_dict.values() if type(points) == int])
 
 # players dictionary
 

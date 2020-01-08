@@ -273,7 +273,7 @@ def points_table(points_dict: dict):
     print('+--------------------+--------+')
 
 
-# wybór kostek do drugiego rzutu
+# choosing dices to re-roll
 
 def input_to_reroll():
 
