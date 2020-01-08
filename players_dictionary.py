@@ -16,14 +16,14 @@ points = {'Pair': 0,
           }
 
 
-#players dictionary
+# players dictionary
 
 def make_players_dict(players_list: list, points: dict):
     
     players_dict = {}
 
     for i in range(len(players_list)):
-        players_dic.update({players_list[i]: copy(points)})
+        players_dict.update({players_list[i]: copy(points)})
 
     return players_dict
 
@@ -33,8 +33,8 @@ def get_players():
     players_number = int(input('number of players?: '))
 
     players_list = []
-    for x in range(players_number):
-        players_list.append (input(f'podaj imie {x+1} gracza: '))
+    for number in range(players_number):
+        players_list.append(input(f'Type name of {number + 1} player: '))
 
     return players_list
 
@@ -42,17 +42,16 @@ def get_players():
 def display_players(players_list: list):
 
     print('Players in the game:')
-    for i in range(len(players_list)):
-        print(f'player number {i+1}:', players_list[i])
+    for player in range(len(players_list)):
+        print(f'player number {player + 1}:', players_list[player])
 
 
 def test_this_module():
     players_list = get_players()
 
-    print ('')
+    print('')
 
     display_players(players_list)
+    players = make_players_dict(players_list, points)
 
-    players = make_players_dic(players_list, points)
-
-    print (players)
+    return players
