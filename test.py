@@ -22,7 +22,7 @@ if None in a:
 print (a)
 
 
-gracze = ['Arek', 'Rafał', 'Tomek']
+
 
 points = {'Pair': 0,
           'Two Pairs': 0,
@@ -36,21 +36,6 @@ points = {'Pair': 0,
           'Five of a kind': 0,
           'Chance': 0
           }
-
-
-def points_table(points_dict: dict):
-
-    print('+--------------------+--------+')
-
-    for i in points_dict.items():
-
-        print('|', i[0].ljust(18), '|', str(i[1]).center(6), '|')
-
-    print('+--------------------+--------+')
-    print('|                    |        |')
-    print('| TOTAL              |', str(sum_points(points_dict)).center(6), '|')
-    print('|                    |        |')
-    print('+--------------------+--------+')
 
 
 
