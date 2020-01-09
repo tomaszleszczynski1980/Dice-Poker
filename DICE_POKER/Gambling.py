@@ -1,3 +1,4 @@
+
 points = {'Pair': 0,
           'Two Pairs': 0,
           'Three of a kind': 0,
@@ -26,6 +27,7 @@ players_dict = {}
 for i in range(players_number):
     players_dict.update({players_list[i]: i+1})
 
+Stakes = 0
 
 Players_account = {}
 def starting_account():
@@ -50,6 +52,8 @@ def betting():
     bet_value = entering_bet_value()
     for i in Players_account:
         Players_account[i] -= bet_value
+        Stakes += bet_value
+        return Stakes
     print(Players_account)
 
 def raise_bet():
@@ -70,12 +74,31 @@ def raising():
         call = input("Do you want to call the bet?: ")
         if call == 'yes':   
             Players_account[f] -= int(raise_bet_value)
+            Stakes += raise_bet_value
+            return Stakes
             print(Players_account)
         if call == 'no':
             play = False
 
-"""def cash_transfer():
-    for i in players_dict:"""
+def sum_dicts(players_dict: dict):
+    return [sum(players_dict['Players'][i].values()) for i in players_dict['Players']]
+
+def compare():
+    
+    players = lista(players_dict)
+    winner = players[0]
+    for i in players:
+        if i  > winner:
+            winner = i
+    return winner
+    
+
+"""def cash_transfer():"""
+    
+
+
+
+        
 
 
 
