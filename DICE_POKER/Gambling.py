@@ -40,7 +40,7 @@ def bank():
 
 def entering_bet_value():
     try:
-        bet_value = int(input("How much do you want to bet? "))
+        bet_value = int(input("How much do you want to bet?: "))
         return bet_value
     except:
         print("The bet value is invalid")
@@ -51,12 +51,35 @@ def betting():
     for i in Players_account:
         Players_account[i] -= bet_value
     print(Players_account)
+
+def raise_bet():
+    for k in Players_account:
+        raise_bet_input = input("Do you wish to raise the bet? (yes/no): ")
+        if raise_bet_input == 'yes':
+            raising()
+            break
+
+def call_input():
+    call = input("Do you want  to call the bet?: ")
+    return call
+        
+def raising():
+    raise_bet_value = input("By how much you want to raise the stakes?: ")
+    call = input("Do you want to call the bet?: ")
+    for f in Players_account:
+        print(f)
+        call = input("Do you want to call the bet?: ")
+        if call == 'yes':   
+            break
     
+
 
 
 
 bank()
 betting()
+raise_bet()
+
 
 
 
