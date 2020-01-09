@@ -67,7 +67,7 @@ def raising():
     raise_bet_value = input("By how much you want to raise the stakes?: ")
     call = input("Do you want to call the bet?: ")
     for f in Players_account:
-        print(f)
+        print(f) #to jest ten moment w którym powinno się wyświetlić
         call = input("Do you want to call the bet?: ")
         if call == 'yes':   
             break
