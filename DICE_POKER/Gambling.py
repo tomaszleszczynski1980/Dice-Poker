@@ -85,12 +85,14 @@ def sum_dicts(players_dict: dict):
 
 def compare():
     
-    players = lista(players_dict)
+    players = sum_dicts(players_dict)
     winner = players[0]
     for i in players:
         if i  > winner:
             winner = i
-    return winner
+
+    
+    
     
 
 """def cash_transfer():"""
