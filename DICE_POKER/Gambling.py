@@ -12,32 +12,6 @@ points = {'Pair': 0,
           }
 
 
-points2 = {'Pair': 0,
-          'Two Pairs': 0,
-          'Three of a kind': 0,
-          'Small Straight': 0,
-          'Large Straight': 0,
-          'All even': 0,
-          'All odd': 0,
-          'Full House': 0,
-          'Four of a kind': 0,
-          'Five of a kind': 0,
-          'Chance': 0
-          }
-
-points3 = {'Pair': 0,
-          'Two Pairs': 0,
-          'Three of a kind': 0,
-          'Small Straight': 0,
-          'Large Straight': 0,
-          'All even': 0,
-          'All odd': 0,
-          'Full House': 0,
-          'Four of a kind': 0,
-          'Five of a kind': 0,
-          'Chance': 0
-          }
-
 print('number of players?:')
 players_number = int(input())
 players_list = []
@@ -54,17 +28,39 @@ for i in range(players_number):
 
 
 Players_account = {}
-def starting_bet_value():
+def starting_account():
     return int(input("Please enter starting cash for all players: "))
     
 
 def bank():
-    sbv = starting_bet_value()
+    s_acc = starting_account()
     for i in range(players_number):
-        Players_account.update({players_list[i] : sbv})
+        Players_account.update({players_list[i] : s_acc})
     print(Players_account)
 
+def entering_bet_value():
+    try:
+        bet_value = int(input("How much do you want to bet? "))
+        return bet_value
+    except:
+        print("The bet value is invalid")
+        entering_bet_value()
+
+def betting():
+    bet_value = entering_bet_value()
+    for i in Players_account:
+        Players_account[i] -= bet_value
+    print(Players_account)
+    
+
+
+
 bank()
+betting()
+
+
+
+
 
 
 
