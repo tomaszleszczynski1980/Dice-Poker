@@ -118,4 +118,4 @@ def show_winner(podium: list):
     for player, points in podium:
         print (f'{player} with {points} points')
 
-    print('Congratulations!!!')
+    print(f'{colors.BLINK}{colors.AQUA}Congratulations!!!{colors.ENDC}')

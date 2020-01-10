@@ -41,7 +41,10 @@ def check_hand(hand: list, figures_pattern: dict):
 
     for function in figures_pattern.keys():
         result = figures_pattern[function](sorted_hand)
-        results.extend(result)
+        try:
+            results.extend(result)
+        except TypeError:
+            pass
 
     return results
 
