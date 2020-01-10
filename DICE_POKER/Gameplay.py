@@ -1,46 +1,6 @@
-# this unit (file) defines functions of DICE POKER gameplay
+# this unit (file) defines functions of DICE POKER game play
 from random import randint
-from copy import copy
-
-
-def make_points_dict(figures_pattern: dict):
-    '''this function makes points subdict to use the in players dict
-    import figures_path from game_pattern file, return as points dict'''
-    for key in figures_pattern.keys():
-        figures_pattern[key] = 0
-
-    return figures_pattern
-
-
-def make_players_dict(players_list: list, points: dict):
-    players_dict = {}
-
-    for i in range(len(players_list)):
-        players_dict.update({players_list[i]: copy(points)})
-
-    return players_dict
-
-
-def check_hand(hand: list, figures_pattern: dict):
-    '''this function checks avaiable figures in hand basing on figures pattern'''
-    results = []
-    sorted_hand = sorted(hand)
-
-    for function in figures_pattern.values():
-        results.extend(function(sorted_hand))
-
-    return results
-
-
-def remove_figures_already_got(results: list, points: dict):
-    '''this function removes figures which were already scored or stroke out'''
-    results_copy = results[:]
-
-    for result in results_copy:
-        if points[result[0]] != 0:
-            results.remove(result)
-
-    return results
+from game_pattern_5 import *
 
 
 def sum_points(points_dict: dict):
@@ -72,3 +32,66 @@ def hand_throw(hand: list, choice_to_roll = None):
         j += 1
 
     return hand
+
+
+def check_hand(hand: list, figures_pattern: dict):
+    '''this function checks avaiable figures in hand basing on figures pattern'''
+    results = []
+    sorted_hand = sorted(hand)
+
+    for function in figures_pattern.keys():
+        result = figures_pattern[function](sorted_hand)
+        results.extend(result)
+
+    return results
+
+
+def remove_figures_already_got(results: list, points: dict):
+    '''this function removes figures which were already scored or stroke out'''
+    results_copy = results[:]
+
+    for result in results_copy:
+        if points[result[0]] != 0:
+            results.remove(result)
+
+    return results
+
+
+def add_points_strike_figures(results: list, points: dict, to_add = 0, to_strike = ''):
+    '''functions adds points or strikes figures depending what is chosen by player
+    returns tuple of modified points dict (table) and message'''
+
+    if 0 < to_add <= len(results):
+        points[results[to_add - 1][0]] = results[to_add - 1][1]
+        message = f'{results[to_add - 1][0]} for {results[to_add - 1][1]} added'
+
+    elif (to_add == 0):
+            if ((to_strike in points.keys())):
+                if (points[to_strike] == 0):
+                    points[to_strike] = 'X'
+                    message = f'{to_strike} removed'
+                else:
+                    for item in points.items():
+                        if (item[1] == 0):
+                            message = f'you cannot remove {to_strike}, instead {item[0]} removed'
+                            points[item[0]] = 'X'
+                            break
+            else:
+                for item in points.items():
+                    if (item[1] == 0):
+                        message = f'{item[0]} removed'
+                        points[item[0]] = 'X'
+                        break
+
+    return points, message
+
+
+def find_winner(players_dict: dict):
+    podium = []
+
+    for player, points in players_dict.items():
+        podium.append((player, points))
+
+    podium.sort(key = lambda x: x[1], reverse = True)
+
+    return podium

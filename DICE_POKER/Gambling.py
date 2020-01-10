@@ -64,7 +64,7 @@ def raise_bet():
             break
 
 def call_input():
-    call = input("Do you want  to call the bet?: ")
+    call = input("Do you want to call the bet?: ")
     return call
         
 def raising():

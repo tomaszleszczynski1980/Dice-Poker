@@ -1,0 +1,3 @@
+This should be a help file explaining games rules etc.
+But I am too lazy to write it.
+
