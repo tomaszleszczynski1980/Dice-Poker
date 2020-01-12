@@ -27,8 +27,8 @@ def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws = 2, 
         while throws:
             hand = Gameplay.hand_throw(hand, choice)
             throws -= 1
-            results = Gameplay.check_hand(hand, figures_pattern)
-            results = Gameplay.remove_figures_already_got(results, points)
+            results = Gameplay.remove_figures_already_got(Gameplay.check_hand(hand, figures_pattern), points)
+            results.sort(key = lambda x: x[1], reverse = True)
 
             Visuals.show_points_table(players_dict)
             Visuals.dices_view(hand)
@@ -61,11 +61,11 @@ def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws = 2, 
 def main():
     players_dict, throws = game_start()
 
-    for round in figures_pattern.keys():
+    for figure in figures_pattern.keys():
         players_dict = game_cycle(players_dict, figures_pattern, throws)
 
     Visuals.show_points_table(players_dict)
-    Visuals.show_winner(Gameplay.find_winer(players_dict))
+    Visuals.show_winner(Gameplay.find_winner(players_dict))
 
     Human_inputs.wait_for_key()
     system('clear')

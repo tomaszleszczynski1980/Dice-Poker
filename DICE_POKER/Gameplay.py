@@ -40,11 +40,7 @@ def check_hand(hand: list, figures_pattern: dict):
     sorted_hand = sorted(hand)
 
     for function in figures_pattern.keys():
-        result = figures_pattern[function](sorted_hand)
-        try:
-            results.extend(result)
-        except TypeError:
-            pass
+        results.extend(figures_pattern[function](sorted_hand))
 
     return results
 
@@ -68,20 +64,20 @@ def add_points_strike_figures(results: list, points: dict, to_add = 0, to_strike
         points[results[to_add - 1][0]] = results[to_add - 1][1]
         message = f'{results[to_add - 1][0]} for {results[to_add - 1][1]} added'
 
-    elif (to_add == 0):
-            if ((to_strike in points.keys())):
-                if (points[to_strike] == 0):
+    elif to_add == 0:
+            if to_strike in points.keys():
+                if points[to_strike] == 0:
                     points[to_strike] = 'X'
                     message = f'{to_strike} removed'
                 else:
                     for item in points.items():
-                        if (item[1] == 0):
+                        if item[1] == 0:
                             message = f'you cannot remove {to_strike}, instead {item[0]} removed'
                             points[item[0]] = 'X'
                             break
             else:
                 for item in points.items():
-                    if (item[1] == 0):
+                    if item[1] == 0:
                         message = f'{item[0]} removed'
                         points[item[0]] = 'X'
                         break
@@ -93,7 +89,7 @@ def find_winner(players_dict: dict):
     podium = []
 
     for player, points in players_dict.items():
-        podium.append((player, points))
+        podium.append((player, sum_points(points)))
 
     podium.sort(key = lambda x: x[1], reverse = True)
 

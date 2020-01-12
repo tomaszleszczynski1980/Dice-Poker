@@ -60,8 +60,8 @@ def show_avaiable_figures(results_filtered: list):
         print('Figures avaiable in your hand:')
 
         figure_number = 0
-        for figure in results_filtered:
-            print(f'{figure_number + 1}{colors.GREEN} {figure}, {colors.ENDC}', end = '')
+        for figure, points in results_filtered:
+            print(f'{figure_number + 1}.{colors.GREEN} {figure} for {points} points {colors.ENDC}', end = '')
             figure_number += 1
 
     else:
@@ -112,10 +112,12 @@ def show_points_table(players_dict: dict):
 
 
 def show_winner(podium: list):
-    print(f'{colors.BLINK}{colors.AQUA}The winner is {podium[0][0]} with {podium[0][1]} points{colors.ENDC}')
-    print('Other players:')
+    print(f'{colors.BLUE}The winner is {podium[0][0]} with {podium[0][1]} points{colors.ENDC}')
 
-    for player, points in podium:
-        print (f'{player} with {points} points')
+    if len(podium) > 1:
+        print('Other players:')
+        for player, points in podium[1:]:
+            print(f'{player} with {points} points')
 
-    print(f'{colors.BLINK}{colors.AQUA}Congratulations!!!{colors.ENDC}')
+    print('')
+    print(f'{colors.BLINK}{colors.RED}Congratulations!!!{colors.ENDC}')

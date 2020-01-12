@@ -15,7 +15,6 @@ def make_points_dict(figures_pattern: dict):
 
 def make_players_dict(players_list: list, points: dict):
     '''makes players_dict main dictionary of the game containing players names and their points dictionaries (tables)'''
-
     players_dict = {}
     for i in range(len(players_list)):
         players_dict.update({players_list[i]: copy(points)})

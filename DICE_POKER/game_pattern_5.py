@@ -80,7 +80,8 @@ def is_2pairs(sorted_hand: list):
             return [('Two Pairs', sum(sorted_hand[0:4]))]
         elif sorted_hand[3] == sorted_hand[4]:
             return [('Two Pairs', sum(sorted_hand) - sorted_hand[2])]
-
+        else:
+            return []
     elif (sorted_hand[1] == sorted_hand[2]) and (sorted_hand[3] == sorted_hand[4]):
         return [('Two Pairs', sum(sorted_hand[1:5]))]
     else:
