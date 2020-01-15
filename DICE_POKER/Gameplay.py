@@ -24,12 +24,12 @@ def hand_throw(hand: list, choice_to_roll = None):
     if choice_to_roll is None:
         choice_to_roll = range(len(hand))
 
-    result = dice_throw(len(choice_to_roll))
+    new_throw = dice_throw(len(choice_to_roll))
 
-    j = 0
+    dice_index_in_new_throw = 0
     for dice_number in choice_to_roll:
-        hand[dice_number] = result[j]
-        j += 1
+        hand[dice_number] = new_throw[dice_index_in_new_throw]
+        dice_index_in_new_throw += 1
 
     return hand
 
