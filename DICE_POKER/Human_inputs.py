@@ -2,7 +2,7 @@
 
 def wait_for_key(quit = 'q'):
     key = input('press any key')
-    if key == 'q':
+    if key == quit:
         exit()
 
 
