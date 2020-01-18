@@ -1,13 +1,24 @@
-# this file (unit) contains input functions from human player
+''' Module contains input functions from human player'''
 
-def wait_for_key(quit = 'q'):
-    key = input('press any key')
+def wait_for_key(quit='q'):
+    '''waits for enter/return key.
+
+    in fact any input
+    inputting quit value, exits program.
+    '''
+
+    key = input('press enter/return key')
     if key == quit:
         exit()
 
 
 def get_players(players_limit = 5):
-    '''function gets number of human players, and their names'''
+    '''Gets number of human players, and their names.
+
+    returns list of players names
+    if ValueError or wrong numbers of players calls self again.
+    '''
+
     try:
         players_number = int(input('Enter number of players: '))
     except ValueError:
@@ -31,7 +42,8 @@ def get_players(players_limit = 5):
 
 
 def get_throws():
-    '''function asks human player for number of maximum dice throws in each round'''
+    '''Asks human player for number of maximum dice throws in each round'''
+
     try:
         throws = int(input('Enter number of dice throws: '))
     except ValueError:
@@ -46,9 +58,13 @@ def get_throws():
 
 
 def choose_to_reroll():
-    '''function ask human player which dices to re-roll'''
-    choice = input('Which dices to re-roll (sep with commas, empty = nothing to re-roll): ')
+    '''Asks human player which dices to re-roll
 
+    if empty string is given or 0 or wrong number
+    returns empty roll list that means re-roll nothing.
+    '''
+
+    choice = input('Which dices to re-roll (sep with commas, empty = nothing to re-roll): ')
     if choice == '' or choice[0] == ' ' or choice[0] == '0':
         roll = []
     else:
@@ -61,7 +77,14 @@ def choose_to_reroll():
 
 
 def add_remove_input(results: list, points: dict):
-    '''this function asks human player which figure to write down or strike out in/from points dict (table)'''
+    '''Asks human player which figure to write down or strike out.
+
+    from points dict (table)
+    returns tuple of add, remove
+    where add is a figure to add from results list
+    remove figure to remove
+    '''
+
     if len(results) > 0:
         choice = input('Choose figure to add (number) or name figure from points list to delete: ')
 

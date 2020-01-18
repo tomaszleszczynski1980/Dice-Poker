@@ -1,5 +1,13 @@
-# unit for Dice Poker
-# this unit (file) defines functions that find figures in hands consisting of five six-sided dices
+'''module for Dice Poker Game that defines figgures patterns.
+
+   defines functions that find figures in hands of five six-sided dices.
+   each function returns a list of tuples (figure_name, figure_value)
+   if figure(s) is present
+   if not returns empty list.
+   figures_pattern dictionary defines figures names (keys)
+   and name of function (values) that checks if this figure is in hand.
+   figures_pattern is also used to built points dicts.
+'''
 
 
 def is_five(sorted_hand: list):

@@ -3,11 +3,12 @@ from os import system
 from game_pattern_5 import figures_pattern
 
 
-def game_start(hand_size = 5, dice_size = 6):
+def game_start(hand_size=5, dice_size=6):
     Visuals.message('Welcome to dice poker')
     system('clear')
     players_list = Human_inputs.get_players()
-    players_dict = Preparations.make_players_dict(players_list, Preparations.make_points_dict(figures_pattern))
+    points_dict = Preparations.make_points_dict(figures_pattern)
+    players_dict = Preparations.make_players_dict(players_list, points_dict)
     throws = Human_inputs.get_throws()
     Visuals.display_players(players_list)
     Human_inputs.wait_for_key()
@@ -16,8 +17,9 @@ def game_start(hand_size = 5, dice_size = 6):
     return players_dict, throws
 
 
-def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws = 2, number_of_dices = 5):
+def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws=3, number_of_dices=5):
     '''one game cycle in which one action of each of all defined players are taken'''
+
     for name, points in players_dict.items():
         Visuals.message(f'Plays {name}')
         hand = [0 for i in range(number_of_dices)]
@@ -27,8 +29,9 @@ def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws = 2, 
         while throws:
             hand = Gameplay.hand_throw(hand, choice)
             throws -= 1
-            results = Gameplay.remove_figures_already_got(Gameplay.check_hand(hand, figures_pattern), points)
-            results.sort(key = lambda x: x[1], reverse = True)
+            results = Gameplay.check_hand(hand, figures_pattern)
+            results = Gameplay.remove_figures_already_got(results, points)
+            results.sort(key=lambda x: x[1], reverse=True)
 
             Visuals.show_points_table(players_dict)
             Visuals.dices_view(hand)
@@ -61,7 +64,8 @@ def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws = 2, 
 def main():
     players_dict, throws = game_start()
 
-    for figure in figures_pattern.keys():
+    for round_number in range(len(figures_pattern)):
+        Visuals.message(f'Round number {round_number}')
         players_dict = game_cycle(players_dict, figures_pattern, throws)
 
     Visuals.show_points_table(players_dict)

@@ -1,8 +1,12 @@
+'''Defines visual interface for command line (terminal)'''
+
+
 from Gameplay import sum_points
 
 
 class colors:
-    '''variables used to get colored/bold/italic/u-lined/blinking text in Terminal'''
+    '''variables used to get colored/bold/italic/blinking text in Terminal'''
+
     WHITE = '\033[97m'
     AQUA = '\033[96m'
     PINK = '\033[95m'
@@ -22,6 +26,8 @@ class colors:
 
 
 def display_players(players_list: list):
+    '''Prints players names'''
+
     print('Players in the game:')
     for player in range(len(players_list)):
         print(f'Player number {player + 1}:', players_list[player])
@@ -32,7 +38,7 @@ def message(text: str):
 
 
 def dices_view(hand: list):
-    '''this function visualizes five cube-dices in text-mode screen (terminal)'''
+    '''Visualizes five six-sided dices in text-mode screen'''
 
     pattern = (('│       │', '│   •   │', '│       │'),  # 1
                ('│ •     │', '│       │', '│     • │'),  # 2
@@ -56,21 +62,26 @@ def dices_view(hand: list):
 
 
 def show_avaiable_figures(results_filtered: list):
-    if len(results_filtered) > 0:
-        print('Figures avaiable in your hand:')
+    '''Shows list of figures available in hand
 
+    basing on filtered results list
+    if empty prints that there is no figures'''
+
+    if len(results_filtered) > 0:
+        print('Figures available in your hand:')
         figure_number = 0
         for figure, points in results_filtered:
-            print(f'{figure_number + 1}.{colors.GREEN} {figure} for {points} points {colors.ENDC}', end = '')
+            print(f'{figure_number + 1}.{colors.GREEN} {figure} for {points} points {colors.ENDC}', end='')
             figure_number += 1
 
     else:
-        print(f'{colors.RED}No figures avaiable in your hand{colors.ENDC}')
+        print(f'{colors.RED}No figures available in your hand{colors.ENDC}')
 
     print('')
 
 
 def show_points_table(players_dict: dict):
+    '''Prints points table for all players.'''
 
     players_names = list(players_dict.keys())
     players_number = len(players_names)
@@ -81,21 +92,21 @@ def show_points_table(players_dict: dict):
         print('+--------------------+' + hr_line * players_number)
 
     hr_line(players_number)
-    print('|                    |', end ='')
+    print('|                    |', end='')
 
     for name in players_names:
-        print(name[:6].center(8) + '|', end = '')
+        print(name[:6].center(8) + '|', end='')
 
     print('')
     hr_line(players_number)
 
     line = 0
     for figure in figures_list:
-        print('|', figure.ljust(18), '|', end ='')
+        print('|', figure.ljust(18), '|', end='')
 
         for player_points_table in players_dict.values():
             points = list(player_points_table.values())
-            print(str(points[line]).center(7), '|', end ='')
+            print(str(points[line]).center(7), '|', end='')
 
         print('')
         line += 1
@@ -104,7 +115,7 @@ def show_points_table(players_dict: dict):
     print('| TOTAL              |', end='')
 
     for player in players_dict.values():
-        print(str(sum_points(player)).center(7), '|', end = '')
+        print(str(sum_points(player)).center(7), '|', end='')
 
     print('')
     hr_line(players_number)
@@ -112,6 +123,8 @@ def show_points_table(players_dict: dict):
 
 
 def show_winner(podium: list):
+    '''Prints winner and other players results'''
+
     print(f'{colors.BLUE}The winner is {podium[0][0]} with {podium[0][1]} points{colors.ENDC}')
 
     if len(podium) > 1:
