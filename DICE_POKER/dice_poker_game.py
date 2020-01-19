@@ -18,7 +18,7 @@ def game_start(hand_size=5, dice_size=6):
 
 
 def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws=3, number_of_dices=5):
-    '''one game cycle in which one action of each of all defined players are taken'''
+    """one game cycle in which one action of each of all defined players are taken"""
 
     for name, points in players_dict.items():
         Visuals.message(f'Plays {name}')

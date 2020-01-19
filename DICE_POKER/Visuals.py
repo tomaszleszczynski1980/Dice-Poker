@@ -1,11 +1,10 @@
-'''Defines visual interface for command line (terminal)'''
-
+"""Defines visual interface for command line (terminal)."""
 
 from Gameplay import sum_points
 
 
 class colors:
-    '''variables used to get colored/bold/italic/blinking text in Terminal'''
+    """variables used to get colored/bold/italic/blinking text in Terminal."""
 
     WHITE = '\033[97m'
     AQUA = '\033[96m'
@@ -26,7 +25,7 @@ class colors:
 
 
 def display_players(players_list: list):
-    '''Prints players names'''
+    """Prints players names."""
 
     print('Players in the game:')
     for player in range(len(players_list)):
@@ -38,7 +37,7 @@ def message(text: str):
 
 
 def dices_view(hand: list):
-    '''Visualizes five six-sided dices in text-mode screen'''
+    """Visualizes five six-sided dices in text-mode screen."""
 
     pattern = (('│       │', '│   •   │', '│       │'),  # 1
                ('│ •     │', '│       │', '│     • │'),  # 2
@@ -62,10 +61,10 @@ def dices_view(hand: list):
 
 
 def show_avaiable_figures(results_filtered: list):
-    '''Shows list of figures available in hand
+    """Shows list of figures available in hand.
 
     basing on filtered results list
-    if empty prints that there is no figures'''
+    if empty prints that there is no figures."""
 
     if len(results_filtered) > 0:
         print('Figures available in your hand:')
@@ -81,7 +80,7 @@ def show_avaiable_figures(results_filtered: list):
 
 
 def show_points_table(players_dict: dict):
-    '''Prints points table for all players.'''
+    """Prints points table for all players."""
 
     players_names = list(players_dict.keys())
     players_number = len(players_names)
@@ -123,7 +122,7 @@ def show_points_table(players_dict: dict):
 
 
 def show_winner(podium: list):
-    '''Prints winner and other players results'''
+    """Prints winner and other players results."""
 
     print(f'{colors.BLUE}The winner is {podium[0][0]} with {podium[0][1]} points{colors.ENDC}')
 

@@ -10,11 +10,11 @@ from pprint import pprint
 
 
 def make_points_dict(figures_pattern: dict):
-    '''Makes points subdict to use the in players dict.
+    """Makes points subdict to use the in players dict.
 
     import figures_pattern from game_pattern file.
     return single points dict
-    '''
+    """
 
     points = {}
     for key in figures_pattern.keys():
@@ -24,10 +24,10 @@ def make_points_dict(figures_pattern: dict):
 
 
 def make_players_dict(players_list: list, points: dict):
-    '''Makes players_dict main dictionary of the game.
+    """Makes players_dict main dictionary of the game.
 
     containing players names as keys and their points dictionaries as values.
-    '''
+    """
 
     players_dict = {}
     for name in players_list:
@@ -37,7 +37,7 @@ def make_players_dict(players_list: list, points: dict):
 
 
 def show_help(helpfile='help.txt'):
-    '''Loads and shows help text from external file'''
+    """Loads and shows help text from external file."""
 
     with open (helpfile, 'r', encoding='utf-8') as file:
         help_content = file.read()
