@@ -1,4 +1,8 @@
-import Gameplay, Visuals, Human_inputs, Preparations
+import Gameplay
+import Visuals
+import Human_inputs
+import Preparations
+
 from os import system
 from game_pattern_5 import figures_pattern
 
