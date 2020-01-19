@@ -79,5 +79,5 @@ def main():
     system('clear')
 
 
-# here it goes
-main()
+if __name__ == '__main__':
+    main()
