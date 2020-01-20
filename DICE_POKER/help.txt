@@ -1,3 +1,6 @@
-This should be a help file explaining games rules etc.
-But I am too lazy to write it.
+GAME RULES:
+1. Dice Poker is turn based game where players roll their dices trying to collect certain figures and get points for completing them.
+2.At the start of each turn after the dices are thrown and you're given a hand which contains your rolled dices.
+3.If you've chosen more than 1 roll of dices you are able to re-roll them by typing their positions, select figure which you want to get points for or you can type name of chosen figure to cross it out which blocks your way to get points for that given figure in future rounds.
+4.You also have to cross out selected figure if you have none on your hand.
 
