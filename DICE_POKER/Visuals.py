@@ -1,4 +1,7 @@
-"""Defines visual interface for command line (terminal)."""
+"""Defines visual interface for command line (terminal).
+
+   Functions in this module have no return, just print some patterns.
+"""
 
 from Gameplay import sum_points
 

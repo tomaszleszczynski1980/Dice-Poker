@@ -4,7 +4,7 @@ from random import randint
 from game_pattern_5 import *
 
 
-def sum_points(points_dict: dict):
+def sum_points(points_dict: dict) -> int:
     """sums points in points dictionary.
 
     omitting figures that are stroke out (marked with 'X')
@@ -14,7 +14,7 @@ def sum_points(points_dict: dict):
     return sum([points for points in points_dict.values() if type(points) == int])
 
 
-def dice_throw(number_of_dices: int, dice_size=6):
+def dice_throw(number_of_dices: int, dice_size=6) -> list:
     """Throws given number of dice_size dices.
 
     returns results as a list.
@@ -27,7 +27,7 @@ def dice_throw(number_of_dices: int, dice_size=6):
     return result
 
 
-def hand_throw(hand: list, choice_to_roll=None):
+def hand_throw(hand: list, choice_to_roll=None) -> list:
     """Throws chosen dices from hand.
 
     input hand, choice_to_roll = index+1 of dices in hand list to be re-thrown
@@ -48,7 +48,7 @@ def hand_throw(hand: list, choice_to_roll=None):
     return hand
 
 
-def check_hand(hand: list, figures_pattern: dict):
+def check_hand(hand: list, figures_pattern: dict) -> list:
     """Checks available figures in hand basing on figures pattern.
 
     figures_pattern is dict of {figure: name_of_function}
@@ -66,7 +66,7 @@ def check_hand(hand: list, figures_pattern: dict):
     return results
 
 
-def remove_figures_already_got(results: list, points: dict):
+def remove_figures_already_got(results: list, points: dict) -> list:
     """Removes figures which were already scored or stroke out.
 
     in players points dict
@@ -81,7 +81,8 @@ def remove_figures_already_got(results: list, points: dict):
     return results
 
 
-def add_points_strike_figures(results: list, points: dict, to_add=0, to_strike =''):
+def add_points_strike_figures(results: list, points: dict,
+                              to_add=0, to_strike='') -> tuple:
     """Adds points or strikes figures depending what is chosen by player.
 
     returns tuple of modified points dict (table) and message.
@@ -112,7 +113,7 @@ def add_points_strike_figures(results: list, points: dict, to_add=0, to_strike =
     return points, message
 
 
-def find_winner(players_dict: dict):
+def find_winner(players_dict: dict) -> list:
     """Finds winner when game is finished.
 
     returns sorted list of tuples (players_name, sum_of_players_points).

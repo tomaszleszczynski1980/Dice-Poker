@@ -12,7 +12,7 @@ def wait_for_key(quit='q'):
         exit()
 
 
-def get_players(players_limit = 5):
+def get_players(players_limit=5) -> list:
     """Gets number of human players, and their names.
 
     returns list of players names
@@ -41,7 +41,7 @@ def get_players(players_limit = 5):
     return players_list
 
 
-def get_throws():
+def get_throws() -> int:
     """Asks human player for number of maximum dice throws in each round."""
 
     try:
@@ -57,10 +57,11 @@ def get_throws():
     return throws
 
 
-def choose_to_reroll():
+def choose_to_reroll() -> list:
     """Asks human player which dices to re-roll.
 
-    if empty string is given or 0 or wrong number
+    Returns list of dices numbers in hand list (index+1) to re-roll.
+    If empty string is given or 0 or wrong number
     returns empty roll list that means re-roll nothing.
     """
 
@@ -76,13 +77,13 @@ def choose_to_reroll():
     return roll
 
 
-def add_remove_input(results: list, points: dict):
+def add_remove_input(results: list, points: dict) -> tuple:
     """Asks human player which figure to write down or strike out.
 
-    from points dict (table)
-    returns tuple of add, remove
-    where add is a figure to add from results list
-    remove figure to remove.
+    Add or remove to/from points dict (table).
+    Returns tuple of add, remove
+    where add is a figure from results list to add to points dict
+    remove figure to remove from points dict
     """
 
     if len(results) > 0:
