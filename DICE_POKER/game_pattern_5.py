@@ -33,25 +33,28 @@ def is_four(sorted_hand: list) -> list:
 def is_full_house(sorted_hand: list) -> list:
     bonus = 10
 
-    if (sorted_hand.count(sorted_hand[0]) == 3) and (sorted_hand.count(sorted_hand[-1]) == 2):
+    if (sorted_hand.count(sorted_hand[0]) == 3) \
+            and (sorted_hand.count(sorted_hand[-1]) == 2):
         return [('Full House', bonus + sum(sorted_hand))]
-    elif (sorted_hand.count(sorted_hand[0]) == 2) and (sorted_hand.count(sorted_hand[-1]) == 3):
+
+    elif (sorted_hand.count(sorted_hand[0]) == 2) \
+            and (sorted_hand.count(sorted_hand[-1]) == 3):
         return [('Full House', bonus + sum(sorted_hand))]
     else:
         return []
 
 
 def is_odd(sorted_hand: list) -> list:
-    if (sorted_hand[0] % 2 == 1) and (sorted_hand[1] % 2 == 1) and (sorted_hand[2] % 2 == 1) \
-            and (sorted_hand[3] % 2 == 1) and (sorted_hand[4] % 2 == 1):
+    temp = [dice_value % 2 for dice_value in sorted_hand]
+    if temp.count(1) == len(temp):
         return [('All odd', sum(sorted_hand))]
     else:
         return []
 
 
 def is_even(sorted_hand: list) -> list:
-    if (sorted_hand[0] % 2 == 0) and (sorted_hand[1] % 2 == 0) and (sorted_hand[2] % 2 == 0) \
-            and (sorted_hand[3] % 2 == 0) and (sorted_hand[4] % 2 == 0):
+    temp = [dice_value % 2 for dice_value in sorted_hand]
+    if temp.count(0) == len(temp):
         return [('All even', sum(sorted_hand))]
     else:
         return []
