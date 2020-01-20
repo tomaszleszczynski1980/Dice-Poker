@@ -41,8 +41,9 @@ def get_players(players_limit=5) -> list:
     return players_list
 
 
-def get_throws() -> int:
+def get_throws(throws_limit=3) -> int:
     """Asks human player for number of maximum dice throws in each round."""
+
 
     try:
         throws = int(input('Enter number of dice throws: '))
@@ -52,6 +53,9 @@ def get_throws() -> int:
 
     if throws <= 0:
         print('you need at least 1 throw')
+        return get_throws()
+    elif throws > throws_limit:
+        print(f'maximum throws number is {throws_limit}')
         return get_throws()
 
     return throws
