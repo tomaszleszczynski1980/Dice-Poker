@@ -1,0 +1,6 @@
+INSTRUCTION:
+1. When the program launches you will be asked to enter number of players (2-5) 
+2. Each player has to enter their name
+3. You have an option to choose number of rolls (1-3)
+4a. If you have chosen more than 1 roll you're able to re-roll your dices by typing their positions or press  ENTER to keep you hand
+4b. You can choose an available figure from your hand by typing a number of figure in the proposed figure list or cross it out by typing figure name
