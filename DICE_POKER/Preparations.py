@@ -1,15 +1,15 @@
 """Module defines preparation functions of Dice Poker Game.
 
-Functions defined in this module prepare the game:
-get number of players, import game patterns, generate points tables (dicts)
-show help file.
+    Functions defined in this module prepare the game:
+    get number of players, import game patterns, generate points tables (dicts)
+    show help file.
 """
 
 from copy import copy
 from pprint import pprint
 
 
-def make_points_dict(figures_pattern):
+def make_points_dict(figures_pattern: dict) -> dict:
     """Makes points subdict to use the in players dict.
 
     import figures_pattern from game_pattern file.
@@ -23,7 +23,7 @@ def make_points_dict(figures_pattern):
     return points
 
 
-def make_players_dict(players_list, points):
+def make_players_dict(players_list: list, points: dict) -> dict:
     """Makes players_dict main dictionary of the game.
 
     containing players names as keys and their points dictionaries as values.
