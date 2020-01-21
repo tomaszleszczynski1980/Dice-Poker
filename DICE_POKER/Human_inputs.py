@@ -90,6 +90,9 @@ def add_remove_input(results: list, points: dict) -> tuple:
     remove figure, figure key (string) to remove from points dict
     """
 
+    add = 0
+    remove = ''
+
     if results:
         choice = input('Choose figure to add (number) or name figure from points list to delete: ')
 
@@ -100,20 +103,14 @@ def add_remove_input(results: list, points: dict) -> tuple:
             else:
                 add = 1
 
-            remove = ''
-
         except ValueError:
             if choice in points.keys():
                 remove = choice
-                add = 0
-
             else:
-                remove = ''
                 add = 1
 
     else:
         choice = input('Type figure name from points table to delete: ')
         remove = choice
-        add = 0
 
     return add, remove
