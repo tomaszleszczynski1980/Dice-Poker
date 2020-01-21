@@ -1,4 +1,7 @@
-"""Defines visual interface for command line (terminal)."""
+"""Defines visual interface for command line (terminal).
+
+   Functions in this module have no return, just print some patterns.
+"""
 
 from Gameplay import sum_points
 
@@ -24,16 +27,31 @@ class colors:
     BACKGROUND = '\033[7m'
 
 
+class message:
+    """Messages for human outputs.
+
+    Defines for different functions to print different kinds of messages.
+    """
+
+    def warning(text: str):
+        print(f'{colors.RED}{text}{colors.ENDC}')
+
+    def prompt(text: str):
+        print(f'{colors.GREEN}{text}{colors.ENDC}')
+
+    def list(text: str):
+        print(f'{colors.BLUE}{text}{colors.ENDC}')
+
+    def headlist(text: str):
+        print(f'{colors.GREEN}{colors.BOLD}{text}{colors.ENDC}')
+
+
 def display_players(players_list: list):
     """Prints players names."""
 
-    print('Players in the game:')
+    message.headlist('Players in the game:')
     for player in range(len(players_list)):
-        print(f'Player number {player + 1}:', players_list[player])
-
-
-def message(text: str):
-    print(f'{colors.RED}{text}{colors.ENDC}')
+        message.list(f'Player number {player + 1}: {players_list[player]}')
 
 
 def dices_view(hand: list):
@@ -67,14 +85,14 @@ def show_avaiable_figures(results_filtered: list):
     if empty prints that there is no figures."""
 
     if len(results_filtered) > 0:
-        print('Figures available in your hand:')
+        message.headlist('Figures available in your hand:')
         figure_number = 0
         for figure, points in results_filtered:
-            print(f'{figure_number + 1}.{colors.GREEN} {figure} for {points} points {colors.ENDC}', end='')
+            print(f'{figure_number + 1}.{colors.BLUE} {figure} for {points} points {colors.ENDC}', end='')
             figure_number += 1
 
     else:
-        print(f'{colors.RED}No figures available in your hand{colors.ENDC}')
+        message.headlist(f'No figures available in your hand')
 
     print('')
 
@@ -124,12 +142,12 @@ def show_points_table(players_dict: dict):
 def show_winner(podium: list):
     """Prints winner and other players results."""
 
-    print(f'{colors.BLUE}The winner is {podium[0][0]} with {podium[0][1]} points{colors.ENDC}')
+    message.prompt(f'The winner is {podium[0][0]} with {podium[0][1]} points')
 
     if len(podium) > 1:
-        print('Other players:')
+        message.headlist('Other players:')
         for player, points in podium[1:]:
-            print(f'{player} with {points} points')
+            message.list(f'{player} with {points} points')
 
     print('')
     print(f'{colors.BLINK}{colors.RED}Congratulations!!!{colors.ENDC}')

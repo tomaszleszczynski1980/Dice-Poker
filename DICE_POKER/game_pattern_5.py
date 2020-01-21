@@ -10,7 +10,7 @@
 """
 
 
-def is_five(sorted_hand: list):
+def is_five(sorted_hand: list) -> list:
     bonus = 50
 
     if sorted_hand.count(sorted_hand[0]) == 5:
@@ -19,7 +19,7 @@ def is_five(sorted_hand: list):
         return []
 
 
-def is_four(sorted_hand: list):
+def is_four(sorted_hand: list) -> list:
     bonus = 20
 
     if sorted_hand.count(sorted_hand[0]) >= 4:
@@ -30,48 +30,51 @@ def is_four(sorted_hand: list):
         return []
 
 
-def is_full_house(sorted_hand: list):
+def is_full_house(sorted_hand: list) -> list:
     bonus = 10
 
-    if (sorted_hand.count(sorted_hand[0]) == 3) and (sorted_hand.count(sorted_hand[-1]) == 2):
+    if (sorted_hand.count(sorted_hand[0]) == 3) \
+            and (sorted_hand.count(sorted_hand[-1]) == 2):
         return [('Full House', bonus + sum(sorted_hand))]
-    elif (sorted_hand.count(sorted_hand[0]) == 2) and (sorted_hand.count(sorted_hand[-1]) == 3):
+
+    elif (sorted_hand.count(sorted_hand[0]) == 2) \
+            and (sorted_hand.count(sorted_hand[-1]) == 3):
         return [('Full House', bonus + sum(sorted_hand))]
     else:
         return []
 
 
-def is_odd(sorted_hand: list):
-    if (sorted_hand[0] % 2 == 1) and (sorted_hand[1] % 2 == 1) and (sorted_hand[2] % 2 == 1) \
-            and (sorted_hand[3] % 2 == 1) and (sorted_hand[4] % 2 == 1):
+def is_odd(sorted_hand: list) -> list:
+    temp = [dice_value % 2 for dice_value in sorted_hand]
+    if temp.count(1) == len(temp):
         return [('All odd', sum(sorted_hand))]
     else:
         return []
 
 
-def is_even(sorted_hand: list):
-    if (sorted_hand[0] % 2 == 0) and (sorted_hand[1] % 2 == 0) and (sorted_hand[2] % 2 == 0) \
-            and (sorted_hand[3] % 2 == 0) and (sorted_hand[4] % 2 == 0):
+def is_even(sorted_hand: list) -> list:
+    temp = [dice_value % 2 for dice_value in sorted_hand]
+    if temp.count(0) == len(temp):
         return [('All even', sum(sorted_hand))]
     else:
         return []
 
 
-def is_l_straight(sorted_hand: list):
+def is_l_straight(sorted_hand: list) -> list:
     if sorted_hand == [2, 3, 4, 5, 6]:
         return [('Large Straight', 20)]  # large straight is always 20 points
     else:
         return []
 
 
-def is_s_straight(sorted_hand: list):
+def is_s_straight(sorted_hand: list) -> list:
     if sorted_hand == [1, 2, 3, 4, 5]:
         return [('Small Straight', 15)]  # small straight is always 15 points
     else:
         return []
 
 
-def is_three(sorted_hand: list):
+def is_three(sorted_hand: list) -> list:
     if sorted_hand.count(sorted_hand[0]) >= 3:
         return [('Three of a kind', sum(sorted_hand[0:3]))]
     elif sorted_hand.count(sorted_hand[-1]) >= 3:
@@ -82,7 +85,7 @@ def is_three(sorted_hand: list):
         return []
 
 
-def is_2pairs(sorted_hand: list):
+def is_2pairs(sorted_hand: list) -> list:
     if sorted_hand[0] == sorted_hand[1]:
         if sorted_hand[2] == sorted_hand[3]:
             return [('Two Pairs', sum(sorted_hand[0:4]))]
@@ -96,7 +99,7 @@ def is_2pairs(sorted_hand: list):
         return []
 
 
-def is_pair(sorted_hand: list):
+def is_pair(sorted_hand: list) -> list:
     pairs_list = []
 
     for dice_value in range(1, 6 + 1):
@@ -106,7 +109,7 @@ def is_pair(sorted_hand: list):
     return pairs_list
 
 
-def is_chance(sorted_hand: list):
+def is_chance(sorted_hand: list) -> list:
     return [('Chance', sum(sorted_hand))]
 
 

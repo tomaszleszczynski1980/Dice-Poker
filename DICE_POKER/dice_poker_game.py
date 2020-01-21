@@ -7,7 +7,7 @@ from os import system
 from game_pattern_5 import figures_pattern
 
 
-def game_start(hand_size=5, dice_size=6):
+def game_start(hand_size=5, dice_size=6) -> tuple((dict,int)):
     Visuals.message('Welcome to dice poker')
     system('clear')
     players_list = Human_inputs.get_players()
@@ -21,7 +21,8 @@ def game_start(hand_size=5, dice_size=6):
     return players_dict, throws
 
 
-def game_cycle(players_dict: dict, figures_pattern: dict, number_of_throws=3, number_of_dices=5):
+def game_cycle(players_dict: dict, figures_pattern: dict,
+               number_of_throws=3, number_of_dices=5) -> dict:
     """one game cycle in which one action of each of all defined players are taken"""
 
     for name, points in players_dict.items():
