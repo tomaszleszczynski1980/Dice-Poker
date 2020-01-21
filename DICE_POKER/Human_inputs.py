@@ -86,11 +86,11 @@ def add_remove_input(results: list, points: dict) -> tuple:
 
     Add or remove to/from points dict (table).
     Returns tuple of add, remove
-    where add is a figure from results list to add to points dict
-    remove figure to remove from points dict
+    where add is number of figure tuple from results list to add to points dict
+    remove figure, figure key (string) to remove from points dict
     """
 
-    if len(results) > 0:
+    if results:
         choice = input('Choose figure to add (number) or name figure from points list to delete: ')
 
         try:
