@@ -9,7 +9,7 @@ from copy import copy
 from pprint import pprint
 
 
-def make_points_dict(figures_pattern: dict) -> dict:
+def make_points_dict(figures_pattern):
     """Makes points subdict to use the in players dict.
 
     import figures_pattern from game_pattern file.
@@ -23,7 +23,7 @@ def make_points_dict(figures_pattern: dict) -> dict:
     return points
 
 
-def make_players_dict(players_list: list, points: dict) -> dict:
+def make_players_dict(players_list, points):
     """Makes players_dict main dictionary of the game.
 
     containing players names as keys and their points dictionaries as values.
