@@ -6,7 +6,6 @@
 """
 
 from copy import copy
-from pprint import pprint
 
 
 def make_points_dict(figures_pattern: dict) -> dict:
@@ -36,10 +35,8 @@ def make_players_dict(players_list: list, points: dict) -> dict:
     return players_dict
 
 
-def show_help(helpfile='help.txt'):
+def read_help(helpfile='help.txt'):
     """Loads and shows help text from external file."""
 
-    with open (helpfile, 'r', encoding='utf-8') as file:
-        help_content = file.read()
-
-    pprint(help_content)
+    with open(helpfile, 'r', encoding='utf-8') as file:
+        return file.read()
