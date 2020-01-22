@@ -11,7 +11,7 @@ Figures_probability = {'Pair': 0.4630,
                        'Chance': 1.000
                        }
 
-Figures_points = {'Pair': (12, 6, 6.0),
+Figures_points = {'Pair': (12, 2, 6.0),
                   'Two Pairs': (24, 4, 14.0),
                   'Three of a kind': (18, 3, 10.5),
                   'Small Straight': (15, 15, 15.0),
@@ -30,19 +30,27 @@ def work_function():
         relation = Figures_points[figure][2] / probability
         res[figure] = relation
 
+"""Below dictionary defines figure occurance probability in five dice throw,
+   maximum figures points and remove coefficient.
+   The lower coefficient is the figure is first in queue to be stroke out.
+   
+   coefficient = figure_probability * figure_max_points
+"""
 
-FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12),
-                                  'Two Pairs': (0.2315, 24),
-                                  'Three of a kind': (0.1543, 18),
-                                  'Small Straight': (0.0309, 15),
-                                  'Large Straight': (0.0309, 20),
-                                  'All even': (0.0313, 30),
-                                  'All odd': (0.0313, 25),
-                                  'Full House': (0.0386, 40),
-                                  'Four of a kind': (0.0193, 44),
-                                  'Five of a kind': (0.0008, 80),
-                                  'Chance': (1.000, 30)
+
+FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
+                                  'Two Pairs': (0.2315, 24, 5.556),
+                                  'Three of a kind': (0.1543, 18, 2.7774),
+                                  'Small Straight': (0.0309, 15, 0.4635),
+                                  'Large Straight': (0.0309, 20, 0.618),
+                                  'All even': (0.0313, 30, 0.939),
+                                  'All odd': (0.0313, 25, 0.7825),
+                                  'Full House': (0.0386, 40, 1.544),
+                                  'Four of a kind': (0.0193, 44, 0.8492),
+                                  'Five of a kind': (0.0008, 80, 0.0064),
+                                  'Chance': (1.000, 30, 30)
                                   }
+
 
 
 def get_best_figure(results: list, points: dict,
