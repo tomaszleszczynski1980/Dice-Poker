@@ -7,8 +7,8 @@ from os import system
 from game_pattern_5 import figures_pattern
 
 
-def game_start(hand_size=5, dice_size=6) -> tuple((dict,int)):
-    Visuals.message('Welcome to dice poker')
+def game_start(hand_size=5, dice_size=6) -> tuple:
+    Visuals.message.list('Welcome to dice poker')
     system('clear')
     players_list = Human_inputs.get_players()
     points_dict = Preparations.make_points_dict(figures_pattern)
@@ -26,8 +26,8 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
     """one game cycle in which one action of each of all defined players are taken"""
 
     for name, points in players_dict.items():
-        Visuals.message(f'Plays {name}')
-        hand = [0 for i in range(number_of_dices)]
+        Visuals.message.list(f'Plays {name}')
+        hand = [0 for dice in range(number_of_dices)]
         throws = number_of_throws
         choice = None
 
@@ -58,8 +58,8 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
         players_dict[name] = points
 
         Visuals.show_points_table(players_dict)
-        Visuals.message(message)
-        Visuals.message(f'{name} round finished')
+        Visuals.message.list(message)
+        Visuals.message.prompt(f'{name} round finished')
         Human_inputs.wait_for_key()
         system('clear')
 
@@ -70,7 +70,7 @@ def main():
     players_dict, throws = game_start()
 
     for round_number in range(len(figures_pattern)):
-        Visuals.message(f'Round number {round_number}')
+        Visuals.message.headlist(f'Round number {round_number}')
         players_dict = game_cycle(players_dict, figures_pattern, throws)
 
     Visuals.show_points_table(players_dict)

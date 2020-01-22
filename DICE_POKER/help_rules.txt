@@ -3,3 +3,4 @@ GAME RULES:
 2. At the start of each turn after the dices are thrown and you're given a hand which contains your rolled dices.
 3. After your rolls or re-rolls are finished you have to select figure that you want to get points for by typing its index number or cross it out by typing its name
 4. The cycle is repeated until all players have finished their point table
+
