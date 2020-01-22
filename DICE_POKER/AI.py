@@ -1,10 +1,12 @@
-"""Below dictionary defines figure occurance probability in five dice throw,
-   maximum figures points and remove coefficient.
-   The lower coefficient is the figure is first in queue to be stroke out.
+"""Module defines AI for Dice Poker
+
+   Dictionary FIGURES_PROBABILITY_MAX_POINTS defines
+   figure hitting probability in five dice throw (first element)
+   maximum figure points (second element) and remove coefficient (third).
+   The lower coefficient the figure is first in queue to be stroke out.
    
    coefficient = figure_probability * figure_max_points
 """
-
 
 FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
                                   'Two Pairs': (0.2315, 24, 5.556),
@@ -20,10 +22,18 @@ FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
                                   }
 
 
-
 def get_best_figure(results: list, points: dict,
                     FIGURES_PROBABILITY_MAX_POINTS):
-    """Chooses best figure from hand"""
+    """Chooses best figure from hand.
+
+    Choice is based on figure_weight that is count:
+    (figure_points / figure_probability) / figure_max_points
+    if figure points are more than coefficient (to small points)
+    function decides which figure to strike out
+    also when results list is empty function strikes out one figure
+    decision is based on coefficient (The lower coefficient
+    the figure is first in queue to be stroke out).
+    """
 
     add = 0
     remove = ''
@@ -37,7 +47,7 @@ def get_best_figure(results: list, points: dict,
             coefficient = FIGURES_PROBABILITY_MAX_POINTS[result[0]][2]
 
             if figure_points > round(coefficient):
-                figure_weight = (figure_points / figure_probability) / figure_max_points
+                figure_weight = (figure_points/figure_probability)/figure_max_points
             else:
                 figure_weight = 0
 
@@ -55,4 +65,3 @@ def get_best_figure(results: list, points: dict,
         remove = min(choice.items(), key=lambda x: x[1])[0]
 
     return add, remove
-
