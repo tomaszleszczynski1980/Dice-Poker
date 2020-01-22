@@ -2,9 +2,11 @@ import Gameplay
 import Visuals
 import Human_inputs
 import Preparations
+import AI
 
 from os import system
 from game_pattern_5 import figures_pattern
+
 
 
 def game_start(hand_size=5, dice_size=6) -> tuple:
@@ -35,26 +37,52 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
             hand = Gameplay.hand_throw(hand, choice)
             throws -= 1
             results = Gameplay.check_hand(hand, figures_pattern)
-            results = Gameplay.remove_figures_already_got(results, points)
-            results.sort(key=lambda x: x[1], reverse=True)
+            filtered_results = Gameplay.remove_figures_already_got(results, points)
+            filtered_results.sort(key=lambda x: x[1], reverse=True)
 
             Visuals.show_points_table(players_dict)
             Visuals.dices_view(hand)
-            Visuals.show_avaiable_figures(results)
+            Visuals.show_avaiable_figures(filtered_results)
 
-            if throws > 0:
-                choice = Human_inputs.choose_to_reroll()
-                if len(choice) == 0:
+            if name.lower().startswith('comp'):        #computer plays
+                if throws > 0:
+                    # we don't have function for computer to re-throw
+                    # instead that, computer says:
+
+                    Visuals.message.warning(f'{name} says: I am too stupid to choose what to re-roll')
                     throws = 0
-                    add, remove = Human_inputs.add_remove_input(results, points)
+
+                    add, remove = AI.get_best_figure(filtered_results, points, AI.FIGURES_PROBABILITY_MAX_POINTS)
+
+                    '''
+                    choice = AI.computer_choice()
+                    if len(choice) == 0:
+                        throws = 0
+                        add, remove = AI.get_best_figure(filtered_results, points, AI.FIGURES_PROBABILITY_MAX_POINTS)
+                    else:
+                        pass
+                    '''
+
                 else:
-                    pass
-            else:
-                add, remove = Human_inputs.add_remove_input(results, points)
+                    add, remove = AI.get_best_figure(filtered_results, points, AI.FIGURES_PROBABILITY_MAX_POINTS)
 
-            system('clear')
+                Human_inputs.wait_for_key()
+                system('clear')
 
-        points, message = Gameplay.add_points_strike_figures(results, points, add, remove)
+            else:                                      #if not computer plays, plays human, obvious :)
+                if throws > 0:
+                    choice = Human_inputs.choose_to_reroll()
+                    if len(choice) == 0:
+                        throws = 0
+                        add, remove = Human_inputs.add_remove_input(filtered_results, points)
+                    else:
+                        pass
+                else:
+                    add, remove = Human_inputs.add_remove_input(filtered_results, points)
+
+                system('clear')
+
+        points, message = Gameplay.add_points_strike_figures(filtered_results, points, add, remove)
         players_dict[name] = points
 
         Visuals.show_points_table(players_dict)
