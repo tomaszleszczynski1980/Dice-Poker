@@ -98,7 +98,7 @@ def main():
     players_dict, throws = game_start()
 
     for round_number in range(len(figures_pattern)):
-        Visuals.message.headlist(f'Round number {round_number}')
+        Visuals.message.headlist(f'Round number {round_number + 1}')
         players_dict = game_cycle(players_dict, figures_pattern, throws)
 
     Visuals.show_points_table(players_dict)
