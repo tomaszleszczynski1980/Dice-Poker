@@ -16,7 +16,7 @@ FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
                                   'Full House': (0.0386, 40, 1.544),
                                   'Four of a kind': (0.0193, 44, 0.8492),
                                   'Five of a kind': (0.0008, 80, 0.0064),
-                                  'Chance': (1.000, 30, 30)
+                                  'Chance': (1.000, 30, 14.9999)
                                   }
 
 
@@ -34,13 +34,14 @@ def get_best_figure(results: list, points: dict,
             figure_points = result[1]
             figure_probability = FIGURES_PROBABILITY_MAX_POINTS[result[0]][0]
             figure_max_points = FIGURES_PROBABILITY_MAX_POINTS[result[0]][1]
+            coefficient = FIGURES_PROBABILITY_MAX_POINTS[result[0]][2]
 
-            if figure_points > round(figure_probability * figure_max_points):
-                coef = (figure_points / figure_probability) / figure_max_points
+            if figure_points > round(coefficient):
+                figure_weight = (figure_points / figure_probability) / figure_max_points
             else:
-                coef = 0
+                figure_weight = 0
 
-            choice[result_index] = coef
+            choice[result_index] = figure_weight
 
         if sum(choice.values()):
             add = max(choice.items(), key=lambda x: x[1])[0] + 1
