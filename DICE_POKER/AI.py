@@ -61,21 +61,29 @@ def get_best_figure(results: list, points: dict,
     remove = ''
 
     if results:
-        if len(results) == 1:
-            add = 1
+        choice = {}
+        for result_index, result in enumerate(results):
+            figure_points = result[1]
+            figure_probability = FIGURES_PROBABILITY_MAX_POINTS[result[0]][0]
+            figure_max_points = FIGURES_PROBABILITY_MAX_POINTS[result[0]][1]
 
-        else:
-            choice = {}
-            for result_index, result in enumerate(results):
-                coef = (result[1] / FIGURES_PROBABILITY_MAX_POINTS[result[0]][0]) / FIGURES_PROBABILITY_MAX_POINTS[result[0]][1]
-                choice[result_index] = coef
+            if figure_points > round(figure_probability * figure_max_points):
+                coef = (figure_points / figure_probability) / figure_max_points
+            else:
+                coef = 0
 
+            choice[result_index] = coef
+
+        if sum(choice.values()):
             add = max(choice.items(), key=lambda x: x[1])[0] + 1
+
+    if add == 0:
+        choice = {}
+        for figure, value in points.items():
+            if value == 0:
+                choice[figure] = FIGURES_PROBABILITY_MAX_POINTS[figure][2]
+
+        remove = min(choice.items(), key=lambda x: x[1])[0]
 
     return add, remove
 
-    '''
-    else:
-        pass
-        # WTF_to_strike_out()
-    '''
