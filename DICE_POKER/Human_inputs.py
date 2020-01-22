@@ -13,7 +13,7 @@ def wait_for_key(quit='q'):
 
 
 def get_players(players_limit=5) -> list:
-    """Gets number of human players, and their names.
+    """Gets number of players, and their names.
 
     returns list of players names
     if ValueError or wrong numbers of players calls self again.
@@ -25,15 +25,15 @@ def get_players(players_limit=5) -> list:
         print('number must be integer')
         return get_players()
 
+    print('Enter player(s) name(s). For computer player type "computer"')
+
     if 0 < players_number <= players_limit:
         players_list = []
         for number in range(players_number):
             players_list.append(input(f'Enter name of {number + 1} player: '))
-
     elif players_number > players_limit:
         print(f'too many players. Specify maximum {players_number}')
         return get_players()
-
     else:
         print('at least one player is needed')
         return get_players()
