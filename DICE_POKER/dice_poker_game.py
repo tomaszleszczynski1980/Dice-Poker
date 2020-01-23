@@ -24,6 +24,7 @@ def game_start(hand_size=5, dice_size=6) -> tuple:
 
 
 def game_cycle(players_dict: dict, figures_pattern: dict,
+               rounds_number: int, rounds_left: int,
                number_of_throws=3, number_of_dices=5) -> dict:
     """one game cycle in which one action of each of all defined players are taken"""
 
@@ -51,7 +52,9 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 
                     Visuals.message.warning(f'{name} says: I am too stupid to choose what to re-roll')
                     throws = 0
-                    add, remove = AI.get_best_figure(filtered_results, points, AI.FIGURES_PROBABILITY_MAX_POINTS)
+                    add, remove = AI.get_best_figure(filtered_results, points,
+                                                     rounds_number, rounds_left,
+                                                     AI.FIGURES_PROBABILITY_MAX_POINTS)
 
                     '''
                     choice = AI.computer_choice()
@@ -63,7 +66,9 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
                     '''
 
                 else:
-                    add, remove = AI.get_best_figure(filtered_results, points, AI.FIGURES_PROBABILITY_MAX_POINTS)
+                    add, remove = AI.get_best_figure(filtered_results, points,
+                                                     rounds_number, rounds_left,
+                                                     AI.FIGURES_PROBABILITY_MAX_POINTS)
 
                 if add:
                     message = 'add {0} for {1} points'.format(filtered_results[add - 1][0],filtered_results[add - 1][1])
@@ -101,10 +106,13 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 
 def main():
     players_dict, throws = game_start()
+    rounds_number = len(figures_pattern)
 
-    for round_number in range(len(figures_pattern)):
+    for round_number in range(rounds_number):
+        rounds_left = rounds_number - round_number
         Visuals.message.headlist(f'Round number {round_number + 1}')
-        players_dict = game_cycle(players_dict, figures_pattern, throws)
+        players_dict = game_cycle(players_dict, figures_pattern,
+                                  rounds_number, rounds_left, throws)
 
     Visuals.show_points_table(players_dict)
     Visuals.show_winner(Gameplay.find_winner(players_dict))
