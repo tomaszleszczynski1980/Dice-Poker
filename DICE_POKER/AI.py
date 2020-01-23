@@ -23,6 +23,7 @@ FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
 
 
 def get_best_figure(results: list, points: dict,
+                    rounds_number: int, rounds_left: int,
                     FIGURES_PROBABILITY_MAX_POINTS):
     """Chooses best figure from hand.
 
@@ -46,7 +47,7 @@ def get_best_figure(results: list, points: dict,
             figure_max_points = FIGURES_PROBABILITY_MAX_POINTS[result[0]][1]
             coefficient = FIGURES_PROBABILITY_MAX_POINTS[result[0]][2]
 
-            if figure_points > round(coefficient):
+            if (figure_points / rounds_left) > round(coefficient / rounds_number):
                 figure_weight = (figure_points/figure_probability)/figure_max_points
             else:
                 figure_weight = 0
