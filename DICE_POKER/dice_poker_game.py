@@ -28,12 +28,12 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
     """one game cycle in which one action of each of all defined players are taken"""
 
     for name, points in players_dict.items():
-        Visuals.message.list(f'Plays {name}')
         hand = [0 for dice in range(number_of_dices)]
         throws = number_of_throws
         choice = None
 
         while throws:
+            Visuals.message.list(f'Plays {name}')
             hand = Gameplay.hand_throw(hand, choice)
             throws -= 1
             results = Gameplay.check_hand(hand, figures_pattern)
