@@ -1,14 +1,27 @@
 """Module contains input functions from human player."""
 
-def wait_for_key(quit='q'):
-    """waits for enter/return key.
+from Preparations import read_help
+from os import system
 
-    in fact any input
-    inputting quit value, exits program.
+
+def wait_for_key(quit='q', helpp='h'):
+    """Waits for enter/return key.
+
+    In fact any input
+    inputting quit value, exits program,
+    helpp value calls read_help function.
     """
 
-    key = input('press enter/return key')
-    if key == quit:
+    key = input('press enter to continue (q + enter: quit, h + enter: help)')
+
+    if key.lower() == helpp:
+        system('clear')
+        print(read_help('help_rules.txt'), end='\n\n')
+        print(read_help('help_figures.txt'), end='\n\n')
+        print(read_help('help_instruction.txt'), end='\n\n')
+        wait_for_key()
+
+    elif key.lower() == quit:
         exit()
 
 
