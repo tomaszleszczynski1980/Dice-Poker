@@ -17,8 +17,8 @@ def wait_for_key(quit='q', helpp='h'):
     if key.lower() == helpp:
         system('clear')
         print(read_help('help_rules.txt'), end='\n\n')
-        print(read_help('help_figures.txt'), end='\n\n')
         print(read_help('help_instruction.txt'), end='\n\n')
+        print(read_help('help_figures.txt'), end='\n\n')
         wait_for_key()
 
     elif key.lower() == quit:
