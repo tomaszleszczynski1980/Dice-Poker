@@ -116,6 +116,9 @@ def main():
     Visuals.show_points_table(players_dict)
     Visuals.show_winner(Gameplay.find_winner(players_dict))
 
+    with open(RESULTS_FILE, 'a', encoding="UTF-8") as file:
+        json.dump(players_dict, file, ensure_ascii=False)
+
     Human_inputs.wait_for_key()
     system('clear')
 
