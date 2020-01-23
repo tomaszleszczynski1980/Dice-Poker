@@ -1,35 +1,3 @@
-Figures_probability = {'Pair': 0.4630,
-                       'Two Pairs': 0.2315,
-                       'Three of a kind': 0.1543,
-                       'Small Straight': 0.0309,
-                       'Large Straight': 0.0309,
-                       'All even': 0.0313,
-                       'All odd': 0.0313,
-                       'Full House': 0.0386,
-                       'Four of a kind': 0.0193,
-                       'Five of a kind': 0.0008,
-                       'Chance': 1.000
-                       }
-
-Figures_points = {'Pair': (12, 2, 6.0),
-                  'Two Pairs': (24, 4, 14.0),
-                  'Three of a kind': (18, 3, 10.5),
-                  'Small Straight': (15, 15, 15.0),
-                  'Large Straight': (20, 20, 20.0),
-                  'All even': (30, 10, 20.0),
-                  'All odd': (25, 5, 15.0),
-                  'Full House': (40, 15, 27.5),
-                  'Four of a kind': (44, 24, 34.0),
-                  'Five of a kind': (80, 55, 67.5),
-                  'Chance': (30, 5, 17.5)
-                  }
-
-def work_function():
-    res = {}
-    for figure, probability in Figures_probability.items():
-        relation = Figures_points[figure][2] / probability
-        res[figure] = relation
-
 """Below dictionary defines figure occurance probability in five dice throw,
    maximum figures points and remove coefficient.
    The lower coefficient is the figure is first in queue to be stroke out.
@@ -48,7 +16,7 @@ FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
                                   'Full House': (0.0386, 40, 1.544),
                                   'Four of a kind': (0.0193, 44, 0.8492),
                                   'Five of a kind': (0.0008, 80, 0.0064),
-                                  'Chance': (1.000, 30, 30)
+                                  'Chance': (1.000, 30, 14.9999)
                                   }
 
 
@@ -66,13 +34,14 @@ def get_best_figure(results: list, points: dict,
             figure_points = result[1]
             figure_probability = FIGURES_PROBABILITY_MAX_POINTS[result[0]][0]
             figure_max_points = FIGURES_PROBABILITY_MAX_POINTS[result[0]][1]
+            coefficient = FIGURES_PROBABILITY_MAX_POINTS[result[0]][2]
 
-            if figure_points > round(figure_probability * figure_max_points):
-                coef = (figure_points / figure_probability) / figure_max_points
+            if figure_points > round(coefficient):
+                figure_weight = (figure_points / figure_probability) / figure_max_points
             else:
-                coef = 0
+                figure_weight = 0
 
-            choice[result_index] = coef
+            choice[result_index] = figure_weight
 
         if sum(choice.values()):
             add = max(choice.items(), key=lambda x: x[1])[0] + 1
