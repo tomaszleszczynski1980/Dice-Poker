@@ -8,6 +8,7 @@
    coefficient = figure_probability * figure_max_points
 """
 
+
 FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
                                   'Two Pairs': (0.2315, 24, 5.556),
                                   'Three of a kind': (0.1543, 18, 2.7774),
@@ -66,3 +67,80 @@ def get_best_figure(results: list, points: dict,
         remove = min(choice.items(), key=lambda x: x[1])[0]
 
     return add, remove
+
+
+def throw_or_not_and_what(hand: list, results: list, points: dict):
+
+    results_dict = {}
+    [results_dict.update({figure: points}) for figure, points in results]
+    roll = []
+
+    if 'Five of a kind' in results_dict.keys():
+        to_throw = False
+        return to_throw, roll
+
+    if 'Four of a kind' in results_dict.keys():
+        to_throw = True
+        for dice_value in hand:
+            if hand.count(dice_value) == 1:
+                roll.append(hand.index(dice_value) + 1)
+
+        return to_throw, roll
+
+    if 'Full House' in results_dict.keys():
+        to_throw = False
+        return to_throw, roll
+
+    if 'All even' in results_dict.keys():
+        to_throw = False
+        return to_throw, roll
+
+    if 'All odd' in results_dict.keys():
+        to_throw = False
+        return to_throw, roll
+
+    if 'Large Straight' in results_dict.keys():
+        to_throw = False
+        return to_throw, roll
+
+    if 'Small Straight' in results_dict.keys():
+        to_throw = False
+        return to_throw, roll
+
+    if 'Three of a kind' in results_dict.keys():
+        to_throw = True
+        for dice_value in hand:
+            if hand.count(dice_value) == 1:
+                roll.append(hand.index(dice_value) + 1)
+        return to_throw, roll
+
+    if 'Two Pairs' in results_dict.keys():
+        to_throw = True
+        for dice_value in hand:
+            if hand.count(dice_value) == 1:
+                roll.append(hand.index(dice_value) + 1)
+        return to_throw, roll
+
+    if 'Pair' in results_dict.keys():
+        to_throw = True
+        for dice_value in hand:
+            if hand.count(dice_value) == 1:
+                roll.append(hand.index(dice_value) + 1)
+        return to_throw, roll
+
+    else:
+        return combinations(hand)
+
+# functions not ready yed
+def combinations(hand: list):
+
+    all_combinations = {}
+
+    for num_dices_to_check in range(1,5):
+
+        while num_dices_to_check:
+
+            for dice in range(1, num_dices_to_check):
+
+                pass
+
