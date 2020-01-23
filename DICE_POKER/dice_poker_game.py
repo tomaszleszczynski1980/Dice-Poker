@@ -4,13 +4,20 @@ import Human_inputs
 import Preparations
 import AI
 
+import json
+
 from os import system
 from game_pattern_5 import figures_pattern
 
+from PATH import RESULTS_FILE
+
 
 def game_start(hand_size=5, dice_size=6) -> tuple:
-    Visuals.message.list('Welcome to dice poker')
+    """Function prepares game."""
+
     system('clear')
+    Visuals.message.headlist('Welcome to dice poker')
+    Human_inputs.wait_for_key()
     players_list = Human_inputs.get_players()
     points_dict = Preparations.make_points_dict(figures_pattern)
     players_dict = Preparations.make_players_dict(players_list, points_dict)

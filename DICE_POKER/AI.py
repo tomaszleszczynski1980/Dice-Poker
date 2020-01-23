@@ -25,7 +25,7 @@ FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
 
 def get_best_figure(results: list, points: dict,
                     rounds_number: int, rounds_left: int,
-                    FIGURES_PROBABILITY_MAX_POINTS):
+                    FIGURES_PROBABILITY_MAX_POINTS) -> tuple:
     """Chooses best figure from hand.
 
     Choice is based on figure_weight that is count:
@@ -69,11 +69,18 @@ def get_best_figure(results: list, points: dict,
     return add, remove
 
 
-def throw_or_not_and_what(hand: list, results: list):
+def throw_or_not_and_what(hand: list, results: list) -> list:
+    """Re-roll or not to re-roll that is the question.
 
+    Function checks figures available in results list
+    and decides if it is worth to re-roll or not.
+    """
+
+    roll = []
     results_dict = {}
     [results_dict.update({figure: points}) for figure, points in results]
-    roll = []
+    NO_REROLL_LIST = ['Full House', 'All even',
+                      'All odd', 'Large Straight', 'Small Straight']
 
     if 'Five of a kind' in results_dict.keys():
         return roll
@@ -84,32 +91,16 @@ def throw_or_not_and_what(hand: list, results: list):
                 roll.append(hand.index(dice_value))
         return roll
 
-    if 'Full House' in results_dict.keys():
-        return roll
+    for figure in NO_REROLL_LIST:
+        if figure in results_dict.keys():
+            return roll
 
-    if 'All even' in results_dict.keys():
-        return roll
-
-    if 'All odd' in results_dict.keys():
-        return roll
-
-    if 'Large Straight' in results_dict.keys():
-        return roll
-
-    if 'Small Straight' in results_dict.keys():
-        return roll
-
-    if 'Three of a kind' in results_dict.keys():
-        for dice_value in hand:
-            if hand.count(dice_value) == 1:
-                roll.append(hand.index(dice_value))
-        return roll
-
-    if 'Two Pairs' in results_dict.keys():
-        for dice_value in hand:
-            if hand.count(dice_value) == 1:
-                roll.append(hand.index(dice_value))
-        return roll
+    for figure in ['Three of a kind', 'Two Pairs']:
+        if figure in results_dict.keys():
+            for dice_value in hand:
+                if hand.count(dice_value) == 1:
+                    roll.append(hand.index(dice_value))
+            return roll
 
     # what to re-roll if you have Pair in hand is still not ready.
 
@@ -127,14 +118,12 @@ def throw_or_not_and_what(hand: list, results: list):
 
 
 # function is not ready yet
-def combinations(hand: list):
 
-    all_combinations = {}
+all_combinations = {}
+
+def combinations(hand: list, num_dices_to_check=1):
 
     for num_dices_to_check in range(1,5):
 
-        while num_dices_to_check:
+        combinations(hand, num_dices_to_check)
 
-            for dice in range(1, num_dices_to_check):
-
-                pass
