@@ -57,7 +57,6 @@ def get_players(players_limit=5) -> list:
 def get_throws(throws_limit=3) -> int:
     """Asks human player for number of maximum dice throws in each round."""
 
-
     try:
         throws = int(input('Enter number of dice throws: '))
     except ValueError:

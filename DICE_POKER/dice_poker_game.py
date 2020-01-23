@@ -8,7 +8,6 @@ from os import system
 from game_pattern_5 import figures_pattern
 
 
-
 def game_start(hand_size=5, dice_size=6) -> tuple:
     Visuals.message.list('Welcome to dice poker')
     system('clear')
@@ -45,30 +44,29 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
             Visuals.dices_view(hand)
             Visuals.show_avaiable_figures(filtered_results)
 
+            add = 0
+            remove = ''
+
             if name.lower().startswith('comp'):        #computer plays
                 if throws > 0:
-                    choice = AI.computer_choice()
+                    choice = AI.throw_or_not_and_what(hand, filtered_results)
                     if len(choice) == 0:
                         throws = 0
                         add, remove = AI.get_best_figure(filtered_results, points,
                                                      rounds_number, rounds_left,
                                                      AI.FIGURES_PROBABILITY_MAX_POINTS)
                     else:
+                        print(f'{name} will re-roll dices: {choice}')
                         pass
-
-
                 else:
                     add, remove = AI.get_best_figure(filtered_results, points,
                                                      rounds_number, rounds_left,
                                                      AI.FIGURES_PROBABILITY_MAX_POINTS)
-                '''
-                if add:
-                    message = 'add {0} for {1} points'.format(filtered_results[add - 1][0],filtered_results[add - 1][1])
-                else:
-                    message = 'strike {0} from my points list'.format(remove)
 
-                Visuals.message.warning(f'So i decided to {message}')
-                '''
+                if add:
+                    print(f'{name} adds {filtered_results[add - 1][0]} for {filtered_results[add - 1][1]} points')
+                elif remove:
+                    print(f'{name} strikes {remove}')
 
                 Human_inputs.wait_for_key()
                 system('clear')
