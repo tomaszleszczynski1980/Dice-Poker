@@ -47,35 +47,29 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 
             if name.lower().startswith('comp'):        #computer plays
                 if throws > 0:
-                    # we don't have function for computer to re-throw
-                    # instead that, computer says:
-
-                    Visuals.message.warning(f'{name} says: I am too stupid to choose what to re-roll')
-                    throws = 0
-                    add, remove = AI.get_best_figure(filtered_results, points,
-                                                     rounds_number, rounds_left,
-                                                     AI.FIGURES_PROBABILITY_MAX_POINTS)
-
-                    '''
                     choice = AI.computer_choice()
                     if len(choice) == 0:
                         throws = 0
-                        add, remove = AI.get_best_figure(filtered_results, points, AI.FIGURES_PROBABILITY_MAX_POINTS)
+                        add, remove = AI.get_best_figure(filtered_results, points,
+                                                     rounds_number, rounds_left,
+                                                     AI.FIGURES_PROBABILITY_MAX_POINTS)
                     else:
                         pass
-                    '''
+
 
                 else:
                     add, remove = AI.get_best_figure(filtered_results, points,
                                                      rounds_number, rounds_left,
                                                      AI.FIGURES_PROBABILITY_MAX_POINTS)
-
+                '''
                 if add:
                     message = 'add {0} for {1} points'.format(filtered_results[add - 1][0],filtered_results[add - 1][1])
                 else:
                     message = 'strike {0} from my points list'.format(remove)
 
                 Visuals.message.warning(f'So i decided to {message}')
+                '''
+
                 Human_inputs.wait_for_key()
                 system('clear')
 
