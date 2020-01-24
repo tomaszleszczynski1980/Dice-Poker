@@ -9,6 +9,8 @@
 """
 
 
+# from itertools import product, permutations, compress
+
 FIGURES_PROBABILITY_MAX_POINTS = {'Pair': (0.4630, 12, 5.556),
                                   'Two Pairs': (0.2315, 24, 5.556),
                                   'Three of a kind': (0.1543, 18, 2.7774),
@@ -126,4 +128,3 @@ def combinations(hand: list, num_dices_to_check=1):
     for num_dices_to_check in range(1,5):
 
         combinations(hand, num_dices_to_check)
-
