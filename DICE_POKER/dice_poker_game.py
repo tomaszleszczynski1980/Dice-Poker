@@ -63,9 +63,11 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
                                                      rounds_number, rounds_left,
                                                      AI.FIGURES_PROBABILITY_MAX_POINTS)
                     else:
-                        print(f'{name} will re-roll dices: {choice}')
+                        choice_print = [dice_index + 1 for dice_index in choice]
+                        print(f'{name} will re-roll dices: {choice_print}')
                         pass
                 else:
+
                     add, remove = AI.get_best_figure(filtered_results, points,
                                                      rounds_number, rounds_left,
                                                      AI.FIGURES_PROBABILITY_MAX_POINTS)
