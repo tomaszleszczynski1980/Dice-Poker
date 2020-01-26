@@ -2,6 +2,7 @@
 .vscode/*
 __pycache__/*
 DICE_POKER/__pycache__/*
+DICE_POKER/.idea/*
 DICE_POKER/.DS_Store
 Olds/.DS_Store
 Work/.DS_Store
