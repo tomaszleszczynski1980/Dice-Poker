@@ -85,14 +85,14 @@ def show_avaiable_figures(results_filtered: list):
     if empty prints that there is no figures."""
 
     if len(results_filtered) > 0:
-        message.headlist('Figures available in your hand:')
+        message.headlist('Figures available in hand:')
         figure_number = 0
         for figure, points in results_filtered:
             print(f'{figure_number + 1}.{colors.BLUE} {figure} for {points} points {colors.ENDC}', end='')
             figure_number += 1
 
     else:
-        message.headlist(f'No figures available in your hand')
+        message.headlist(f'No figures available in hand')
 
     print('')
 
