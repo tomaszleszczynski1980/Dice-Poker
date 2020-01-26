@@ -5,6 +5,7 @@ import Preparations
 import AI
 
 import json
+import datetime
 
 from os import system
 from game_pattern_5 import figures_pattern
@@ -53,7 +54,7 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 
             add = 0
             remove = ''
-
+            
             if name.lower().startswith('comp'):        #computer plays
                 if throws > 0:
                     choice = AI.throw_or_not_and_what(hand, filtered_results)
@@ -106,6 +107,8 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 def main():
     players_dict, throws = game_start()
     rounds_number = len(figures_pattern)
+    game_time = datetime.datetime.now()
+    game_time = (game_time.year, game_time, game_time.day, game_time.hour, game_time.minute)
 
     for round_number in range(rounds_number):
         rounds_left = rounds_number - round_number
