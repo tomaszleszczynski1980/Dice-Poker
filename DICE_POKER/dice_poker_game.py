@@ -54,25 +54,22 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 
             add = 0
             remove = ''
-            
-            if name.lower().startswith('comp'):        #computer plays
+
+            if name.lower().startswith('comp'):
                 if throws > 0:
                     choice = AI.throw_or_not_and_what(hand, filtered_results)
                     if len(choice) == 0:
                         throws = 0
                         add, remove = AI.get_best_figure(filtered_results, points,
-                                                     rounds_number, rounds_left,
-                                                     AI.FIGURES_PROBABILITY_MAX_POINTS)
+                                                         rounds_number, rounds_left,
+                                                         AI.FIGURES_PROBABILITY_MAX_POINTS)
                     else:
                         choice_print = [dice_index + 1 for dice_index in choice]
                         print(f'{name} will re-roll dices: {choice_print}')
-                        pass
                 else:
-
                     add, remove = AI.get_best_figure(filtered_results, points,
                                                      rounds_number, rounds_left,
                                                      AI.FIGURES_PROBABILITY_MAX_POINTS)
-
                 if add:
                     print(f'{name} adds {filtered_results[add - 1][0]} for {filtered_results[add - 1][1]} points')
                 elif remove:
@@ -81,7 +78,7 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
                 Human_inputs.wait_for_key()
                 system('clear')
 
-            else:                                      #if not computer plays, plays human, obvious :)
+            else:
                 if throws > 0:
                     choice = Human_inputs.choose_to_reroll()
                     if len(choice) == 0:
@@ -94,7 +91,8 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 
                 system('clear')
 
-        points, message = Gameplay.add_points_strike_figures(filtered_results, points, add, remove)
+        points, message = Gameplay.add_points_strike_figures(
+                        filtered_results, points, add, remove)
         players_dict[name] = points
 
         Visuals.show_points_table(players_dict)
@@ -109,8 +107,8 @@ def game_cycle(players_dict: dict, figures_pattern: dict,
 def main():
     players_dict, throws = game_start()
     rounds_number = len(figures_pattern)
-    game_time = datetime.datetime.now()
-    game_time = (game_time.year, game_time, game_time.day, game_time.hour, game_time.minute)
+    game_dt = datetime.datetime.now()
+    save_datetime = (f'{game_dt.year}-{game_dt.month}-{game_dt.day}, {game_dt.hour}:{game_dt.minute}')
 
     for round_number in range(rounds_number):
         rounds_left = rounds_number - round_number
@@ -122,7 +120,7 @@ def main():
     Visuals.show_winner(Gameplay.find_winner(players_dict))
 
     with open(RESULTS_FILE, 'a', encoding="UTF-8") as file:
-        json.dump(players_dict, file, ensure_ascii=False)
+        json.dump({save_datetime: players_dict}, file, ensure_ascii=False)
 
     Human_inputs.wait_for_key()
     system('clear')
